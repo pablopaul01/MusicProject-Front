@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { axiosInstance } from '../config/axiosInstance'
+import { formatTime } from '../utils/formatTime'
 
 
 const Player = () => {
@@ -7,7 +8,9 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currenIndexSong, setCurrenIndexSong] = useState(0)
   const [nextIndexSong, setNextIndexSong] = useState(currenIndexSong+1)
-
+  const [currentTime, setCurretTime] = useState("00:00")
+  const [duration, setDuration] = useState("00:00")
+  const [progress, setProgress] = useState(0)
 
 useEffect(() => {
   getSongs()
@@ -17,12 +20,11 @@ useEffect(() => {
 useEffect(() => {
   if (isPlaying) {
     audioEl.current.play();
+    // console.log(audioEl.current.duration)
   } else {
     audioEl.current.pause();
   }
 })
-
-
 
   const getSongs = async() => {
     const audios = await axiosInstance.get('/')
@@ -35,28 +37,61 @@ useEffect(() => {
     }
   }
 
-
+  const onLoadedMetadata = () => {
+    if (audioEl.current) {
+        setDuration(formatTime(audioEl.current.duration))
+        
+    }
+}
 
 const skipSong = ( forwards = true) => {
   if (forwards) {
     setCurrenIndexSong(currenIndexSong+1)
-    console.log("currenIndexSong" + currenIndexSong)
   }
   else {
     setCurrenIndexSong(currenIndexSong-1)
   }
 }
-console.log(songs)
+
+const updateProgress= ()=>{
+  const porcentaje = (audioEl.current.currentTime/audioEl.current.duration)*100;
+  setProgress(porcentaje)
+
+}
+
+//hacer la barra de progreso clickeable
+function handleProgress(event) {
+  const seekTime = (event.target.value / 100) * audioEl.current.duration;
+  audioEl.current.currentTime = seekTime;
+}
+
   const audioEl = useRef("null")
+  const progressBar = useRef()
   return (
     <>
-        <audio src={songs[currenIndexSong]?.url} ref={audioEl}></audio>
-        <h1>Upload</h1>
+        <audio src={songs[currenIndexSong]?.url} 
+                ref={audioEl}  
+                onLoadedMetadata={onLoadedMetadata}
+                onTimeUpdate={(e)=>{
+                  setCurretTime(formatTime(e.target.currentTime.toFixed(2)))
+                  updateProgress()
+                }}></audio>
+        <h1>Player</h1>
         <h4>Artista {songs[currenIndexSong]?.artist}</h4>
         <button onClick={()=>skipSong(false)}>ANTERIOR</button>
         <button onClick={()=> setIsPlaying(!isPlaying)}>{isPlaying ? "Pausar" : "Play"}</button>
         <button onClick={skipSong}>SIGUIENTE</button>
-
+        <p>Duration Time: {duration}</p>
+        <p>Current Time: {currentTime}</p>
+        <input
+      ref={progressBar}
+      type="range"
+      name=""
+      id=""
+      value={progress || 0}
+      onChange={(e) => handleProgress(e)}
+      className='w-50'
+    />    
     </>
   )
 }
