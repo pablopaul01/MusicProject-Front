@@ -16,7 +16,7 @@ useEffect(() => {
   getSongs()
 
 }, [])
-
+console.log("songs", songs)
 useEffect(() => {
   if (isPlaying) {
     audioEl.current.play();

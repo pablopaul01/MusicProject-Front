@@ -15,6 +15,21 @@ const UploadSong = () => {
   })
   const [loading, setLoading] = useState(false);
 
+
+  const getCategories = async () => {
+    try {
+      const res = await axiosInstance.get('/categories');
+      setCategories(res.data.categories);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getCategories();
+
+  }, [])
+
   const validateCategoryName = (name) => {
     const regex = /^[A-Za-z0-9\s]+$/;
     return regex.test(name);
@@ -28,22 +43,6 @@ const UploadSong = () => {
       ...formDatos,
       [e.target.name]: e.target.value,
     })
-    // if (name === "title") {
-    //   const isValid = validateCategoryName(value);
-    //   setErrors({ ...errors, [name]: !isValid });
-    // }
-
-    // if (e.target.name.startsWith("roomNumbers")) {
-    //   const index = parseInt(e.target.name.match(/\[(\d+)\]/)[1]);
-    //   const newRoomNumbers = [...formDatos.roomNumbers];
-    //   newRoomNumbers[index] = { number: parseInt(e.target.value) };
-    //   setFormDatos({
-    //     ...formDatos,
-    //     roomNumbers: newRoomNumbers,
-    //   });
-    // } else {
-    //   ;
-    // }
   }
 
   const handleAudioChange = (e) => {
@@ -67,7 +66,6 @@ const UploadSong = () => {
       const resp = await axiosInstance.post("/", formData)
       // getCategories()
       // handleCloseC()
-      console.log("respuesta", resp)
       setLoading(false);
     } catch (error) {
       Swal.fire({
@@ -107,13 +105,13 @@ const UploadSong = () => {
 
         <div className="mb-2 pt-2">
           <label className="form-label">Categoria del audio</label>
-          <input
-            type="text"
-            className="form-control"
-            name="category"
-            onChange={handleChangeDatos}
-            required
-          />
+          <select name="category" id="" onChange={handleChangeDatos}
+            required  className="form-control">
+              <option value=""></option>
+            {categories && categories.map(category => (
+              <option key={category._id} value={category._id}>{category.name}</option>
+            ))}
+          </select>
         </div>
 
         
