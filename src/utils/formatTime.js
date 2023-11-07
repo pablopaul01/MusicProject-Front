@@ -4,7 +4,7 @@ export const formatTime = (time) => {
       const minutos = Math.floor(duracion / 60);
       const segundos = Math.floor(duracion % 60);
       let tiempoTotal = padDigits(minutos, 2) + ':' + padDigits(segundos, 2);//un total de dos
-      const duracionFormateada = tiempoTotal + " min";
+      const duracionFormateada = tiempoTotal;
       return duracionFormateada;
 }
 

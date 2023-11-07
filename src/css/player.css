@@ -1,0 +1,16 @@
+.mainPlayer {
+    background-color: #000;
+    color: #fff;
+}
+
+.mainControls {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.mainPlay {
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+}

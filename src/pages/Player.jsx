@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { axiosInstance } from '../config/axiosInstance'
 import { formatTime } from '../utils/formatTime'
-
+import "../css/player.css"
+import {FaPlay, FaPause, FaBackward, FaForward} from "react-icons/fa"
+import WaveSurfer from 'wavesurfer.js'
 
 const Player = () => {
   const [songs, setSongs] = useState([])
@@ -16,8 +18,9 @@ useEffect(() => {
   getSongs()
 
 }, [])
-console.log("songs", songs)
+
 useEffect(() => {
+
   if (isPlaying) {
     audioEl.current.play();
     // console.log(audioEl.current.duration)
@@ -37,12 +40,6 @@ useEffect(() => {
     }
   }
 
-  const onLoadedMetadata = () => {
-    if (audioEl.current) {
-        setDuration(formatTime(audioEl.current.duration))
-        
-    }
-}
 
 const skipSong = ( forwards = true) => {
   if (forwards) {
@@ -59,6 +56,9 @@ const updateProgress= ()=>{
 
 }
 
+
+
+
 //hacer la barra de progreso clickeable
 function handleProgress(event) {
   const seekTime = (event.target.value / 100) * audioEl.current.duration;
@@ -67,31 +67,68 @@ function handleProgress(event) {
 
   const audioEl = useRef("null")
   const progressBar = useRef()
+  const waveformRef = useRef()
+
+  const createwaveform = async () => {
+    const wavesurfer = await WaveSurfer.create({
+      container: "#waveform",
+      width: 300,
+      height: 50,
+      waveColor: '#7F9054',
+      barGap: 1,
+      progressColor: '#40490B',
+      fillParent: true,
+      media: audioEl.current, // <- this is the important part
+    })
+  }
+
   return (
     <>
         <audio src={songs[currenIndexSong]?.url} 
                 ref={audioEl}  
-                onLoadedMetadata={onLoadedMetadata}
+                onLoadedData={createwaveform}
                 onTimeUpdate={(e)=>{
                   setCurretTime(formatTime(e.target.currentTime.toFixed(2)))
                   updateProgress()
                 }}></audio>
+
+        
         <h1>Player</h1>
-        <h4>Artista {songs[currenIndexSong]?.artist}</h4>
-        <button onClick={()=>skipSong(false)}>ANTERIOR</button>
-        <button onClick={()=> setIsPlaying(!isPlaying)}>{isPlaying ? "Pausar" : "Play"}</button>
-        <button onClick={skipSong}>SIGUIENTE</button>
-        <p>Duration Time: {duration}</p>
-        <p>Current Time: {currentTime}</p>
-        <input
-      ref={progressBar}
-      type="range"
-      name=""
-      id=""
-      value={progress || 0}
-      onChange={(e) => handleProgress(e)}
-      className='w-50'
-    />    
+
+
+ 
+    <section className='container-fluid mainPlayer py-4'>
+                <div className="row">
+                  <div className="col-3 d-flex gap-5">
+                    <div className='d-flex gap-2 align-items-center'>
+                      <span onClick={()=>skipSong(false)} className='mainControls'><FaBackward/></span>
+                      <span onClick={()=> setIsPlaying(!isPlaying)} className='mainPlay'>{isPlaying ? <FaPause/> : <FaPlay/>}</span>
+                      <span onClick={skipSong} className='mainControls'><FaForward/></span>
+                    </div>
+                    <div className='d-flex align-items-center'>
+                      <p className='mb-0'>{currentTime} / {formatTime(songs[currenIndexSong]?.duration)}</p>
+                    </div>
+                  </div>
+                  <div className="col-3 d-flex align-items-center">
+                    <p className='mb-0'>
+                      {songs[currenIndexSong]?.title} - {songs[currenIndexSong]?.artist}
+                    </p>
+                  </div>
+                  <div className="col-3">
+                    {/* <input
+                      ref={progressBar}
+                      type="range"
+                      name=""
+                      id=""
+                      value={progress || 0}
+                      onChange={(e) => handleProgress(e)}
+                      className='w-50'
+                    />    */}
+                    <div id='waveform'></div>
+                  </div>
+
+                </div>
+        </section>
     </>
   )
 }
