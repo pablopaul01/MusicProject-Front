@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import UploadSong from './pages/UploadSong'
 import Home from './pages/Home'
 import Player from './pages/Player'
-import AudioPlayer from './pages/AudioPlayer'
+import UserInterface from './pages/UserInterface'
+
 
 
 
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/upload" element={<UploadSong />} />
         <Route path="/player" element={<Player />} />
-        <Route path="/audioplayer" element={<AudioPlayer />} />
+        <Route path="/userPage" element={<UserInterface />} />
       </Routes>
     </>
   )
