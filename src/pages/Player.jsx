@@ -1,11 +1,13 @@
-import React, {useState, useEffect, useRef} from 'react'
-
+import React, {useState, useEffect, useRef, useContext} from 'react'
 import { formatTime } from '../utils/formatTime'
 import "../css/player.css"
 import {FaPlay, FaPause, FaBackward, FaForward} from "react-icons/fa"
 import WaveSurfer from 'wavesurfer.js'
+import { GlobalContext } from '../context/GlobalContext'
 
-const Player = ({songs}) => {
+
+
+const Player = () => {
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [currenIndexSong, setCurrenIndexSong] = useState(0)
@@ -13,6 +15,7 @@ const Player = ({songs}) => {
   const [currentTime, setCurretTime] = useState("00:00")
   const [progress, setProgress] = useState(0)
   const [waveForm, setWaveForm] = useState(null)
+  const {state,dispatch} = useContext(GlobalContext)
 
 useEffect(() => {
 
@@ -28,7 +31,7 @@ useEffect(() => {
 
 const skipSong = ( forwards = true) => {
   if (forwards) {
-    if (currenIndexSong + 1 < songs.length) {
+    if (currenIndexSong + 1 < state.songs.length) {
 
       setCurrenIndexSong(currenIndexSong+1)
     }
@@ -75,7 +78,7 @@ const updateProgress= ()=>{
 
   return (
     <>
-        <audio src={songs[currenIndexSong]?.url} 
+        <audio src={state.songs[currenIndexSong]?.url} 
                 ref={audioEl}  
                 onLoadedData={useWave} 
                 onTimeUpdate={(e)=>{
@@ -94,14 +97,14 @@ const updateProgress= ()=>{
                   </div>
                   <div className="col-3 d-flex gap-5 justify-content-center">
                     <div className='d-flex align-items-center'>
-                      <p className='mb-0'>{currentTime} / {formatTime(songs[currenIndexSong]?.duration)}</p>
+                      <p className='mb-0'>{currentTime} / {formatTime(state.songs[currenIndexSong]?.duration)}</p>
                     </div>
                     <div className='d-flex flex-column align-items-start'>
                       <p className='mb-0'>
-                        {songs[currenIndexSong]?.title}
+                        {state.songs[currenIndexSong]?.title}
                       </p>
                       <p className='mb-0 artistPlayer'>
-                      {songs[currenIndexSong]?.artist}
+                      {state.songs[currenIndexSong]?.artist}
                       </p>
                     </div>
                   </div>
