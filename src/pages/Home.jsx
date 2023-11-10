@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div>
         <Link to={"/upload"}>
-            Upload Song
+            Upload Songs
         </Link>
     </div>
   )
