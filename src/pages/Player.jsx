@@ -57,7 +57,7 @@ const updateProgress= ()=>{
       width: 700,
       height: 30,
       waveColor: '#C0C0C0',
-      // barGap: 1,
+      barGap: 1,
       progressColor: '#96989A',
       fillParent: true,
       media: audioEl.current, // <- this is the important part
@@ -83,11 +83,6 @@ const updateProgress= ()=>{
                   updateProgress()
                 }}></audio>
 
-        
-        <h1>Player</h1>
-
-
- 
     <section className='container-fluid mainPlayer py-4'>
                 <div className="row px-4">
                   <div className="col-1 d-flex gap-5">
