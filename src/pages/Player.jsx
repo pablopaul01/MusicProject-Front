@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, useContext} from 'react'
 import { formatTime } from '../utils/formatTime'
 import "../css/player.css"
-import {FaPlay, FaPause, FaBackward, FaForward} from "react-icons/fa"
+import {FaPlay, FaPause, FaBackward, FaForward,FaVolumeUp} from "react-icons/fa"
 import WaveSurfer from 'wavesurfer.js'
 import { GlobalContext } from '../context/GlobalContext'
 
@@ -16,6 +16,7 @@ const Player = () => {
   const [progress, setProgress] = useState(0)
   const [waveForm, setWaveForm] = useState(null)
   const {state,dispatch} = useContext(GlobalContext)
+
 
 useEffect(() => {
 
@@ -74,6 +75,9 @@ const updateProgress= ()=>{
   }
 
 
+  const handleChangeVolumen = (e) => {
+    audioEl.current.volume = e.target.value
+  }
   
 
   return (
@@ -108,10 +112,15 @@ const updateProgress= ()=>{
                       </p>
                     </div>
                   </div>
-                  <div className="col-7 d-flex align-items-center">
+                  <div className="col-6 d-flex align-items-center">
                     <div id='waveform'></div>
                   </div>
-
+                  <div className="col-2 d-flex gap-2 align-items-center">
+                    <FaVolumeUp/>
+                    <input type="range" defaultValue={0.1} max={1} min={0} step={0.1} onChange={e => {
+                      handleChangeVolumen(e);
+                    }}/>
+                  </div>
                 </div>
         </section>
     </>
