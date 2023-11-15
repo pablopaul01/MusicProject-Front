@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* .main {
+    font-family: 'Raleway', sans-serif;
+    min-height: 600px;
+    padding: 80px 0;
+    opacity: 1;
+    background-color: #000000;
+    opacity: 1;
+    background-image: linear-gradient(135deg, #40490B 25%, transparent 25%), linear-gradient(225deg, #40490B 25%, transparent 25%), linear-gradient(45deg, #40490B 25%, transparent 25%), linear-gradient(315deg, #40490B 25%, #000000 25%);
+    background-position: 31px 0, 31px 0, 0 0, 0 0;
+    background-size: 31px 31px;
+    background-repeat: repeat;
+    display: flex;
+} */
+
+.main {
+    margin: auto;
+    width: 90%;
+    max-width: 1000px;
+    background-color: #060807;
+    opacity: 1;
+    background-image: radial-gradient(#40490B 1.55px, transparent 1.55px), radial-gradient(#40490B 1.55px, #060807 1.55px);
+    background-size: 62px 62px;
+    background-position: 0 0, 31px 31px;
+    overflow: hidden;
+    border-radius: 1em;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: .6em;
+    color: white;
+    animation: mostrar 1.5s ease-in-out;
+}
+
+@keyframes mostrar {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.main__figure {
+    overflow: hidden;
+    border-radius: 1em;
+    background-color: #060807;
+    display: flex;
+}
+
+.main__img {
+    margin: auto;
+    width: 80%;
+    max-width: 60vw;
+}
+
+.main__contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5em;
+    padding: 3em .7em;
+    text-align: center;
+}
+
+.main__form {
+    display: grid;
+    justify-items: center;
+    gap: 1.5em;
+}
+
+.main__input {
+    width: 80%;
+    max-width: 500px;
+    outline: none;
+    border: none;
+    padding: 1em;
+    font: inherit;
+    border-radius: .6em;
+    /* cursor: pointer; */
+}
+
+.main__input--send {
+    background-color: #580019;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.main__title {
+    font-size: 2.3rem;
+}
+
+.main__paragraph {
+    margin: .3em 0;
+}
+
+
+.main__social {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    grid-auto-columns: max-content;
+    gap: 1em;
+}
+
+.main__link {
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: .6em 1.5em;
+}
+
+.main__link:hover {
+    background-color: #fff;
+}
+
+.main__icon {
+    width: 30px;
+    height: 30px;
+}
+
+.main__input--send:hover {
+    background-color: #793347;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
