@@ -1,4 +1,4 @@
-import Reac, {useContext} from 'react'
+import React, {useContext} from 'react'
 
 const Header = () => {
   return (

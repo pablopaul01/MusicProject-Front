@@ -4,7 +4,7 @@
 }
 
 
-/* .main {
+.containerLogin {
     font-family: 'Raleway', sans-serif;
     min-height: 600px;
     padding: 80px 0;
@@ -16,7 +16,7 @@
     background-size: 31px 31px;
     background-repeat: repeat;
     display: flex;
-} */
+}
 
 .main {
     margin: auto;
