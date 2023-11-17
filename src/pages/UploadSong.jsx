@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 // import "../../register/register.css"
 import { axiosInstance } from '../config/axiosInstance'
 import Swal from 'sweetalert2'
 import Spinner from 'react-bootstrap/Spinner';
+import { GlobalContext } from '../context/GlobalContext';
+import { getCategories } from '../context/GlobalActions';
+
 
 const UploadSong = () => {
-  const [categories, setCategories] = useState([]);
   const [audioFile, setAudioFile] = useState([]);
   const [errors, setErrors] = useState({});
   const [formDatos, setFormDatos] = useState({
@@ -14,20 +16,10 @@ const UploadSong = () => {
     category: "",
   })
   const [loading, setLoading] = useState(false);
-
-
-  const getCategories = async () => {
-    try {
-      const res = await axiosInstance.get('/categories');
-      setCategories(res.data.categories);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const {state, dispatch} = useContext(GlobalContext)
 
   useEffect(() => {
-    getCategories();
-
+    dispatch(getCategories())
   }, [])
 
   const validateCategoryName = (name) => {
@@ -76,6 +68,7 @@ const UploadSong = () => {
     }
   }
 
+  console.log(state);
   return (
     <div>
       <form className="form-container" onSubmit={handleSubmit}>
@@ -108,7 +101,7 @@ const UploadSong = () => {
           <select name="category" id="" onChange={handleChangeDatos}
             required  className="form-control">
               <option value=""></option>
-            {categories && categories.map(category => (
+            {state.categories && state.categories.map(category => (
               <option key={category._id} value={category._id}>{category.name}</option>
             ))}
           </select>
