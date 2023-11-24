@@ -11,7 +11,6 @@ const Player = ({currentIndexSong, currentTimePlayer,isPlayingPlayer, setIsPlayi
 
   const [isPlaying, setIsPlaying] = useState(false)
   
-  // const [nextIndexSong, setNextIndexSong] = useState(state.currentIndexSong+1)
   const [currentTime, setCurretTime] = useState("00:00")
   const [progress, setProgress] = useState(0)
   const [waveForm, setWaveForm] = useState(null)
@@ -57,11 +56,6 @@ const skipSong = ( forwards = true) => {
   }
 }
 
-const updateProgress= ()=>{
-  const porcentaje = (audioEl.current.currentTime/audioEl.current.duration)*100;
-  setProgress(porcentaje)
-
-}
 
   const audioEl = useRef("null")
   // const progressBar = useRef()
@@ -94,9 +88,20 @@ const updateProgress= ()=>{
   const handleClickWave = (e) => {
     const clickX = e.nativeEvent.offsetX;
     const waveWidth = e.target.clientWidth;
-    setPorcentaje (clickX / waveWidth);
+    dispatch({ type:'SET_PORCENTAJE', payload: (clickX / waveWidth)});
+    console.log("porcentaje", state.porcentaje)
   }
 
+
+  const updateProgress= ()=>{
+
+    if (waveForm){
+      const porcentaje = (waveForm.getCurrentTime()/waveForm.getDuration());
+    dispatch({type:'SET_PORCENTAJE',payload:porcentaje})
+    }
+  
+  }
+  
   return (
     <>
         <audio src={state.currentSong?.url} 
@@ -130,7 +135,8 @@ const updateProgress= ()=>{
                     </div>
                   </div>
                   <div className="col-6 d-flex align-items-center">
-                    <div id='waveform'></div>
+                    <div id='waveform' onClick={e=>{
+                      handleClickWave(e)}}></div>
                   </div>
                   <div className="col-2 d-flex gap-2 align-items-center">
                     <FaVolumeUp/>

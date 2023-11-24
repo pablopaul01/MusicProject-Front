@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, GET_SONGS, SET_WAVEFORM, SET_CURRENT_TIME, SET_CURRENT_SONG, SET_ISPLAYING  } from "./types";
+import { GET_CATEGORIES, GET_SONGS, SET_WAVEFORM, SET_CURRENT_TIME, SET_CURRENT_SONG, SET_ISPLAYING, SET_PORCENTAJE  } from "./types";
 
 export const GlobalReducer = (state, action) => {
     switch (action?.type) {
@@ -28,6 +28,10 @@ export const GlobalReducer = (state, action) => {
         case SET_ISPLAYING:
             return {
                  ...state, isPlaying: action.payload 
+            };
+        case SET_PORCENTAJE:
+            return {
+                 ...state, porcentaje: action.payload 
             };
         default:
             return state;

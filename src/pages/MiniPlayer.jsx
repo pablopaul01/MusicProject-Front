@@ -19,22 +19,6 @@ const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrent
   const {state,dispatch} = useContext(GlobalContext)
 
 
-// useEffect(() => {
-
-//   if (isPlaying) {
-//     // audioEl.current.play();
-//     waveForm.play()
-
-//   } else {
-//     audioEl.current.pause();
-//   }
-
-
-// })
-
-
-
-
 const skipSong = ( forwards = true) => {
   if (forwards) {
     if (currenIndexSong + 1 < state.songs.length) {
@@ -50,11 +34,6 @@ const skipSong = ( forwards = true) => {
   }
 }
 
-const updateProgress= ()=>{
-  const porcentaje = (audioEl.current.currentTime/audioEl.current.duration)*100;
-  setProgress(porcentaje)
-
-}
 
   const audioEl = useRef("null")
   const progressBar = useRef()
@@ -78,25 +57,12 @@ const updateProgress= ()=>{
     waveForm?.destroy()
     createwaveform()
   }
-
-
-  const handleChangeVolumen = (e) => {
-    audioEl.current.volume = e.target.value
-  }
   
   const containerWave= useRef()
 
-  const handleClick = (e) => {
-    const clickX = e.nativeEvent.offsetX;
-    const waveWidth = e.target.clientWidth;
-    setPorcentaje (clickX / waveWidth);
-  }
-
   const handlePlay = () => {
-    // setIsPlaying(!isPlaying)
-    // state.id= song._id,
+
     if (state.currentSong._id !== song._id) {
-      
       dispatch({type: 'SET_CURRENT_SONG', payload: song})
       dispatch({type:'SET_ISPLAYING', payload: false})
       dispatch({type: 'SET_ISPLAYING', payload: true})
@@ -107,15 +73,22 @@ const updateProgress= ()=>{
     }
   }
 
+
+  useEffect(() => {
+    if (waveForm && state.currentSong._id === song._id) {
+      waveForm.seekTo(state.porcentaje)
+    }
+  
+  
+  }, [state.porcentaje])
+
+
   return (
     <>
         <audio src={song?.url} 
                 ref={audioEl}  
                 onLoadedData={useWave} 
                 onTimeUpdate={(e)=>{
-                  setCurrentTime(formatTime(e.target.currentTime.toFixed(2)))
-                  setCurrentTimePlayer(formatTime(e.target.currentTime.toFixed(2)))
-                  // updateProgress()
                 }}></audio>
 
     <section className='container miniPlayer py-2'>
