@@ -4,6 +4,7 @@ import "../css/miniPlayer.css"
 import {FaPlay, FaPause, FaBackward, FaForward,FaVolumeUp} from "react-icons/fa"
 import WaveSurfer from 'wavesurfer.js'
 import { GlobalContext } from '../context/GlobalContext'
+import { SET_ISPLAYING } from '../context/types'
 
 
 
@@ -18,18 +19,18 @@ const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrent
   const {state,dispatch} = useContext(GlobalContext)
 
 
-useEffect(() => {
+// useEffect(() => {
 
-  if (isPlaying) {
-    // audioEl.current.play();
-    waveForm.play()
+//   if (isPlaying) {
+//     // audioEl.current.play();
+//     waveForm.play()
 
-  } else {
-    audioEl.current.pause();
-  }
+//   } else {
+//     audioEl.current.pause();
+//   }
 
 
-})
+// })
 
 
 
@@ -92,17 +93,22 @@ const updateProgress= ()=>{
   }
 
   const handlePlay = () => {
-    setIsPlaying(!isPlaying)
-    state.id= song._id,
-    state.urlSong = song.url
-    state.currentIndexSong = idx
-    setCurrenIndexSong(idx)
-    console.log(state)
-    setIsPlayingPlayer(!isPlaying)
+    // setIsPlaying(!isPlaying)
+    // state.id= song._id,
+    if (state.currentSong._id !== song._id) {
+      
+      dispatch({type: 'SET_CURRENT_SONG', payload: song})
+      dispatch({type:'SET_ISPLAYING', payload: false})
+      dispatch({type: 'SET_ISPLAYING', payload: true})
+    }
+    else
+    {
+      dispatch({type: 'SET_ISPLAYING', payload: !state.isPlaying})
+    }
   }
+
   return (
     <>
-    {/* {console.log("esto es song", song)} */}
         <audio src={song?.url} 
                 ref={audioEl}  
                 onLoadedData={useWave} 
@@ -116,12 +122,12 @@ const updateProgress= ()=>{
                 <div className="row px-4">
                   <div className="col-1 d-flex gap-5">
                     <div className='d-flex gap-2 align-items-center'>
-                      <span onClick={handlePlay} className='miniPlay'>{isPlaying ? <FaPause/> : <FaPlay/>}</span>
+                      <span onClick={handlePlay} className='miniPlay'>{state.currentSong?._id === song._id && state.isPlaying ? <FaPause/> : <FaPlay/>}</span>
                     </div>
                   </div>
                   <div className="col-3 d-flex gap-5 justify-content-center">
                     <div className='d-flex align-items-center'>
-                      <p className='mb-0'>{currentTime} / {formatTime(song?.duration)}</p>
+                      <p className='mb-0'>{state.currentSong?._id === song._id ? state.currentTime : "00:00"} / {formatTime(song?.duration)}</p>
                     </div>
                     <div className='d-flex flex-column align-items-start'>
                       <p className='mb-0'>

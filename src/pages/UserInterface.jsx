@@ -11,7 +11,7 @@ const UserInterface = () => {
   const [currentTimePlayer, setCurrentTimePlayer] = useState("00:00")
   const [isPlayingPlayer, setIsPlayingPlayer] = useState(false)
   const [porcentaje, setPorcentaje] = useState(0)
-    const {state, dispatch} = useContext(GlobalContext)
+  const {state, dispatch} = useContext(GlobalContext)
 
     useEffect(() => {
         dispatch(getSongs())
@@ -21,6 +21,7 @@ const UserInterface = () => {
 // useEffect(() => {
 // console.log("id", state.id)
 // }, [state.id])
+// console.log(state)
 
   return (
     <div>

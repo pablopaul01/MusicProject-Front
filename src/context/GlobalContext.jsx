@@ -4,12 +4,11 @@ import { createContext } from 'react'
 export const initialState = {
     songs: [],
     categories: [],
-    id: null,
-    isPLaying: false,
-    urlSong: "",
+    currentSong: {},
+    isPlaying: false,
     currentIndexSong: 0,
     waveForm: null,
-    currentTime: 0,
+    currentTime: "00:00",
 
 }
 

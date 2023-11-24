@@ -2,3 +2,5 @@ export const GET_SONGS = 'GET_SONGS';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const SET_WAVEFORM = 'SET_WAVEFORM';
 export const SET_CURRENT_TIME = 'SET_CURRENT_TIME';
+export const SET_CURRENT_SONG = 'SET_CURRENT_SONG';
+export const SET_ISPLAYING = 'SET_ISPLAYING';

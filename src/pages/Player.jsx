@@ -22,22 +22,13 @@ const Player = ({currentIndexSong, currentTimePlayer,isPlayingPlayer, setIsPlayi
   // const waveForm = useRef(null);
 
   useEffect(() => {
-    if (isPlayingPlayer) {
-      waveForm.current?.play();
+    if (state.isPlaying) {
+      audioEl.current?.play();
     } else {
       audioEl.current.pause();
     }
-  }, [isPlayingPlayer]);
+  }, );
 
-// useEffect(() => {
-
-//   if (isPlayingPlayer) {
-//     // audioEl.current.play();
-//     waveForm.play()
-//   } else {
-//     audioEl.current.pause();
-//   }
-// })
 
 useEffect(() => {
   if (waveForm) {
@@ -47,11 +38,6 @@ useEffect(() => {
 
 }, [porcentaje])
 
-useEffect(() => {
-  first
-
-
-}, [currentTimePlayer])
 
 
 
@@ -105,14 +91,19 @@ const updateProgress= ()=>{
     audioEl.current.volume = e.target.value
   }
   
+  const handleClickWave = (e) => {
+    const clickX = e.nativeEvent.offsetX;
+    const waveWidth = e.target.clientWidth;
+    setPorcentaje (clickX / waveWidth);
+  }
 
   return (
     <>
-        <audio src={state.songs[currentIndexSong]?.url} 
+        <audio src={state.currentSong?.url} 
                 ref={audioEl}  
                 onLoadedData={useWave} 
                 onTimeUpdate={(e)=>{
-                  setCurretTime(formatTime(e.target.currentTime.toFixed(2)))
+                  dispatch({type:'SET_CURRENT_TIME',  payload: formatTime(e.target.currentTime.toFixed(2))})
                   updateProgress()
                 }}></audio>
 
@@ -121,20 +112,20 @@ const updateProgress= ()=>{
                   <div className="col-1 d-flex gap-5">
                     <div className='d-flex gap-2 align-items-center'>
                       <span onClick={()=>skipSong(false)} className='mainControls'><FaBackward/></span>
-                      <span onClick={()=> setIsPlayingPlayer(!isPlayingPlayer)} className='mainPlay'>{isPlaying ? <FaPause/> : <FaPlay/>}</span>
+                      <span onClick={()=> dispatch({type: 'SET_ISPLAYING', payload: !state.isPlaying})} className='mainPlay'>{state.isPlaying ? <FaPause/> : <FaPlay/>}</span>
                       <span onClick={skipSong} className='mainControls'><FaForward/></span>
                     </div>
                   </div>
                   <div className="col-3 d-flex gap-5 justify-content-center">
                     <div className='d-flex align-items-center'>
-                      <p className='mb-0'>{currentTimePlayer} / {formatTime(state.songs[currentIndexSong]?.duration)}</p>
+                      <p className='mb-0'>{state.currentTime} / {formatTime(state.currentSong?.duration)}</p>
                     </div>
                     <div className='d-flex flex-column align-items-start'>
                       <p className='mb-0'>
-                        {state.songs[currentIndexSong]?.title}
+                        {state.currentSong?.title}
                       </p>
                       <p className='mb-0 artistPlayer'>
-                      {state.songs[currentIndexSong]?.artist}
+                      {state.currentSong?.artist}
                       </p>
                     </div>
                   </div>
