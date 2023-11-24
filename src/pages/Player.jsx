@@ -18,7 +18,6 @@ const Player = ({currentIndexSong, currentTimePlayer,isPlayingPlayer, setIsPlayi
 
 
   const waveformContainer = useRef(null);
-  // const waveForm = useRef(null);
 
   useEffect(() => {
     if (state.isPlaying) {
@@ -26,20 +25,23 @@ const Player = ({currentIndexSong, currentTimePlayer,isPlayingPlayer, setIsPlayi
     } else {
       audioEl.current.pause();
     }
-  }, );
 
+    
+  }, );
 
 useEffect(() => {
   if (waveForm) {
     waveForm.seekTo(porcentaje)
   }
-
-
 }, [porcentaje])
 
-
-
-
+useEffect(() => {
+  console.log(state)
+  if (Object.keys(state.currentSong).length === 0 && state.songs.length > 0){
+    console.log("entro por aqui")
+    dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[0]})
+  } 
+})
 
 const skipSong = ( forwards = true) => {
   if (forwards) {
@@ -58,7 +60,6 @@ const skipSong = ( forwards = true) => {
 
 
   const audioEl = useRef("null")
-  // const progressBar = useRef()
   const waveformRef = useRef()
 
   const createwaveform = () => {
