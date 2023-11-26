@@ -12,7 +12,7 @@ const Player = ({currentIndexSong, currentTimePlayer,isPlayingPlayer, setIsPlayi
   const [isPlaying, setIsPlaying] = useState(false)
   
   const [currentTime, setCurretTime] = useState("00:00")
-  const [progress, setProgress] = useState(0)
+  const [volumen, setVolumen] = useState(1)
   const [waveForm, setWaveForm] = useState(null)
   const {state,dispatch} = useContext(GlobalContext)
 
@@ -36,24 +36,26 @@ useEffect(() => {
 }, [porcentaje])
 
 useEffect(() => {
-  console.log(state)
   if (Object.keys(state.currentSong).length === 0 && state.songs.length > 0){
-    console.log("entro por aqui")
     dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[0]})
   } 
 })
 
 const skipSong = ( forwards = true) => {
+  dispatch({type:'SET_ISPLAYING', payload: false})
   if (forwards) {
-    if (currenIndexSong + 1 < state.songs.length) {
-
-      setCurrenIndexSong(currenIndexSong+1)
+    if (state.currentIndexSong + 1 < state.songs.length) {
+      dispatch({type:'SET_CURRENT_INDEX_SONG',payload: state.currentIndexSong+1})
+      dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[state.currentIndexSong+1]})
+      dispatch({type: 'SET_ISPLAYING', payload: true})
     }
   }
   else {
-    if (currenIndexSong -1 >= 0) {
+    if (state.currentIndexSong -1 >= 0) {
 
-      setCurrenIndexSong(currenIndexSong-1)
+      dispatch({type:'SET_CURRENT_INDEX_SONG',payload: state.currentIndexSong-1})
+      dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[state.currentIndexSong-1]})
+      dispatch({type: 'SET_ISPLAYING', payload: true})
     }
   }
 }
@@ -65,13 +67,12 @@ const skipSong = ( forwards = true) => {
   const createwaveform = () => {
     const wavesurfer = WaveSurfer.create({
       container: "#waveform",
-      width: 700,
+      width: 500,
       height: 30,
       waveColor: '#C0C0C0',
-      barGap: 1,
       progressColor: '#96989A',
       fillParent: true,
-      media: audioEl.current, // <- this is the important part
+      media: audioEl.current,
     })
     setWaveForm(wavesurfer)
   }
@@ -90,7 +91,6 @@ const skipSong = ( forwards = true) => {
     const clickX = e.nativeEvent.offsetX;
     const waveWidth = e.target.clientWidth;
     dispatch({ type:'SET_PORCENTAJE', payload: (clickX / waveWidth)});
-    console.log("porcentaje", state.porcentaje)
   }
 
 
@@ -102,6 +102,15 @@ const skipSong = ( forwards = true) => {
     }
   
   }
+
+  useEffect(() => {
+    if (waveForm && state.changeProgress) {
+      waveForm.seekTo(state.porcentaje)
+      dispatch({ type:'SET_CHANGE_PROGRESS', payload: false});
+    }
+  
+  
+  }, [state.porcentaje])
   
   return (
     <>
@@ -141,7 +150,7 @@ const skipSong = ( forwards = true) => {
                   </div>
                   <div className="col-2 d-flex gap-2 align-items-center">
                     <FaVolumeUp/>
-                    <input type="range" defaultValue={0.1} max={1} min={0} step={0.1} onChange={e => {
+                    <input type="range" defaultValue={volumen} max={1} min={0} step={0.1} onChange={e => {
                       handleChangeVolumen(e);
                     }}/>
                   </div>

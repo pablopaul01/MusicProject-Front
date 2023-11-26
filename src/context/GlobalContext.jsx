@@ -9,7 +9,8 @@ export const initialState = {
     currentIndexSong: 0,
     waveForm: null,
     currentTime: "00:00",
-    porcentaje:0
+    porcentaje:0,
+    changeProgress: false,
 
 }
 

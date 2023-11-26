@@ -24,8 +24,8 @@ const UserInterface = () => {
 // console.log(state)
 
   return (
-    <div>
-        <section className='main'>
+    <div className='main'>
+        <section >
           { 
             state.songs.map( (song,idx) => (
               <MiniPlayer 

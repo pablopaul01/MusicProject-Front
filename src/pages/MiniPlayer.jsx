@@ -19,22 +19,6 @@ const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrent
   const {state,dispatch} = useContext(GlobalContext)
 
 
-const skipSong = ( forwards = true) => {
-  if (forwards) {
-    if (currenIndexSong + 1 < state.songs.length) {
-
-      setCurrenIndexSong(currenIndexSong+1)
-    }
-  }
-  else {
-    if (currenIndexSong -1 >= 0) {
-
-      setCurrenIndexSong(currenIndexSong-1)
-    }
-  }
-}
-
-
   const audioEl = useRef("null")
   const progressBar = useRef()
   const waveformRef = useRef()
@@ -43,12 +27,12 @@ const skipSong = ( forwards = true) => {
     const wavesurfer = WaveSurfer.create({
       container: `#miniWaveform${song._id}`,
       width: 400,
-      height: 10,
+      height: 20,
       waveColor: '#C0C0C0',
-      barGap: 1,
       progressColor: '#96989A',
       fillParent: true,
-      media: audioEl.current, // <- this is the important part
+      media: audioEl.current,
+       // <- this is the important part
     })
     setWaveForm(wavesurfer)
   }
@@ -66,6 +50,7 @@ const skipSong = ( forwards = true) => {
       dispatch({type: 'SET_CURRENT_SONG', payload: song})
       dispatch({type:'SET_ISPLAYING', payload: false})
       dispatch({type: 'SET_ISPLAYING', payload: true})
+      dispatch({type: 'SET_CURRENT_INDEX_SONG', payload: idx})
     }
     else
     {
@@ -82,7 +67,27 @@ const skipSong = ( forwards = true) => {
   
   }, [state.porcentaje])
 
+  const handleClickWave = (e) => {
+    const clickX = e.nativeEvent.offsetX;
+    const waveWidth = e.target.clientWidth;
+    if (state.currentSong._id === song._id) {
 
+      dispatch({ type:'SET_PORCENTAJE', payload: (clickX / waveWidth)});
+      dispatch({ type:'SET_CHANGE_PROGRESS', payload: true});
+      
+    }
+
+  }
+
+const downloadAudio = () => {
+  const aTag = document.createElement('a');
+  aTag.href=song.url;
+  aTag.setAttribute("download",song.title);
+  aTag.setAttribute("target","blank");
+  document.body.appendChild(aTag);
+  aTag.click();
+  aTag.remove()
+}
   return (
     <>
         <audio src={song?.url} 
@@ -113,14 +118,9 @@ const skipSong = ( forwards = true) => {
                   </div>
                   <div className="col-6 d-flex align-items-center justify-content-center">
                     <div id={`miniWaveform${song._id}`} ref={containerWave} onClick={e=>{
-                      handleClick(e)}}></div>
+                      handleClickWave(e)}}></div>
                   </div>
-                  {/* <div className="col-2 d-flex gap-2 align-items-center">
-                    <FaVolumeUp/>
-                    <input type="range" defaultValue={0.1} max={1} min={0} step={0.1} onChange={e => {
-                      handleChangeVolumen(e);
-                    }}/>
-                  </div> */}
+                  <div className='col-2 d-flex py-2'><button className='btn btn-primary' onClick={downloadAudio}>Decargar</button></div>
                 </div>
         </section>
     </>
