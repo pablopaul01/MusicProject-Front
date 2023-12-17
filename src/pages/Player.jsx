@@ -124,8 +124,8 @@ const skipSong = ( forwards = true) => {
                 }}></audio>
 
     <section className='container-fluid mainPlayer py-4'>
-                <div className="row px-4">
-                  <div className="col-1 d-flex gap-5">
+                <div className="row px-0 px-md-4 d-flex justify-content-around">
+                  <div className="col-4 col-md-1 d-flex gap-5">
                     <div className='d-flex gap-2 align-items-center'>
                       <span onClick={()=>skipSong(false)} className='mainControls'><FaBackward/></span>
                       <span onClick={()=> dispatch({type: 'SET_ISPLAYING', payload: !state.isPlaying})} className='mainPlay'>{state.isPlaying ? <FaPause/> : <FaPlay/>}</span>
@@ -145,11 +145,11 @@ const skipSong = ( forwards = true) => {
                       </p>
                     </div>
                   </div>
-                  <div className="col-6 col-md-6 d-flex align-items-center">
+                  <div className="col-8 col-md-6 d-flex align-items-center">
                     <div className="w-100" id='waveform' onClick={e=>{
                       handleClickWave(e)}}></div>
                   </div>
-                  <div className="col-2 d-md-flex gap-2 align-items-center d-none">
+                  <div className="col-2 d-md-flex gap-2 align-items-center d-none justify-content-center">
                     <FaVolumeUp/>
                     <input type="range" defaultValue={volumen} max={1} min={0} step={0.1} onChange={e => {
                       handleChangeVolumen(e);
