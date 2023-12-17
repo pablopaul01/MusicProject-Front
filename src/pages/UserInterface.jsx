@@ -21,7 +21,7 @@ const UserInterface = () => {
 // useEffect(() => {
 // console.log("id", state.id)
 // }, [state.id])
-// console.log(state)
+console.log(state)
 
   return (
     <div className='main'>

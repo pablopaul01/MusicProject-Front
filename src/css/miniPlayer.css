@@ -13,3 +13,7 @@
 .artistPlayer {
     color: #96989A ;
 }
+
+.miniWave {
+    min-width: none;
+}

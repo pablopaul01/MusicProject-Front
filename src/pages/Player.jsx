@@ -67,11 +67,12 @@ const skipSong = ( forwards = true) => {
   const createwaveform = () => {
     const wavesurfer = WaveSurfer.create({
       container: "#waveform",
-      width: 500,
+      // width: 500,
       height: 30,
       waveColor: '#C0C0C0',
       progressColor: '#96989A',
       fillParent: true,
+      // minPxPerSec: 10,
       media: audioEl.current,
     })
     setWaveForm(wavesurfer)
@@ -131,7 +132,7 @@ const skipSong = ( forwards = true) => {
                       <span onClick={skipSong} className='mainControls'><FaForward/></span>
                     </div>
                   </div>
-                  <div className="col-3 d-flex gap-5 justify-content-center">
+                  <div className="col-3 d-md-flex gap-5 justify-content-center d-none">
                     <div className='d-flex align-items-center'>
                       <p className='mb-0'>{state.currentTime} / {formatTime(state.currentSong?.duration)}</p>
                     </div>
@@ -144,11 +145,11 @@ const skipSong = ( forwards = true) => {
                       </p>
                     </div>
                   </div>
-                  <div className="col-6 d-flex align-items-center">
-                    <div id='waveform' onClick={e=>{
+                  <div className="col-6 col-md-6 d-flex align-items-center">
+                    <div className="w-100" id='waveform' onClick={e=>{
                       handleClickWave(e)}}></div>
                   </div>
-                  <div className="col-2 d-flex gap-2 align-items-center">
+                  <div className="col-2 d-md-flex gap-2 align-items-center d-none">
                     <FaVolumeUp/>
                     <input type="range" defaultValue={volumen} max={1} min={0} step={0.1} onChange={e => {
                       handleChangeVolumen(e);

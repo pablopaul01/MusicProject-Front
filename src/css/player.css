@@ -24,6 +24,14 @@
     color: #96989A ;
 }
 
-.wavesurfer-region {
+/* .wavesurfer-region {
     max-width: 100%;
 }
+
+.canvases {
+    width: 100%;
+} */
+
+#waveform {
+    min-width: none;
+  }
