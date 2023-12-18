@@ -1,0 +1,19 @@
+.miniPlayer {
+    background-color: #171717;
+    color: #fff;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.miniPlay {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.artistPlayer {
+    color: #96989A ;
+}
+
+.miniWave {
+    min-width: none;
+}

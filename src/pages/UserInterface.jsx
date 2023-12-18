@@ -1,31 +1,54 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Player from './Player'
-import { axiosInstance } from '../config/axiosInstance'
 import "../css/userInterface.css"
+import {getSongs} from '../context/GlobalActions'
+import {GlobalContext} from '../context/GlobalContext'
+import MiniPlayer from './MiniPlayer'
+
 
 const UserInterface = () => {
-    const [songs, setSongs] = useState([])
+  const [currentIndexSong, setCurrenIndexSong] = useState(0)
+  const [currentTimePlayer, setCurrentTimePlayer] = useState("00:00")
+  const [isPlayingPlayer, setIsPlayingPlayer] = useState(false)
+  const [porcentaje, setPorcentaje] = useState(0)
+  const {state, dispatch} = useContext(GlobalContext)
 
     useEffect(() => {
-        getSongs()
-      
+        dispatch(getSongs())
       }, [])
-
-      const getSongs = async() => {
-        const audios = await axiosInstance.get('/')
-        try {
-          if (audios) {
-            setSongs(audios.data.audios)
-          }
-        } catch (error) {
-          console.log(error)
-        }
-      }
       
+      // state.id="1231231asd"
+// useEffect(() => {
+// console.log("id", state.id)
+// }, [state.id])
+console.log(state)
+
   return (
-    <div>
-        <section className='main'></section>
-        <Player songs={songs}/>
+    <div className='main'>
+        <section >
+          { 
+            state.songs.map( (song,idx) => (
+              <MiniPlayer 
+                song={song} 
+                key={song._id} 
+                idx={idx} 
+                setCurrenIndexSong={setCurrenIndexSong} 
+                setCurrentTimePlayer={setCurrentTimePlayer} 
+                setIsPlayingPlayer={setIsPlayingPlayer}
+                waveForm={state.waveForm}
+                porcentaje={porcentaje}
+                setPorcentaje = {setPorcentaje}
+                />
+            ))
+          }
+        </section>
+        <Player 
+          currentIndexSong={currentIndexSong} 
+          currentTimePlayer={currentTimePlayer} 
+          isPlayingPlayer={isPlayingPlayer} 
+          setIsPlayingPlayer={setIsPlayingPlayer}
+          porcentaje={porcentaje}
+          />
     </div>
   )
 }
