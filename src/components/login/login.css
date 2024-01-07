@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Gilda+Display&family=Roboto:wght@100;300&display=swap');
+
+
+
+.titulo {
+    display: flex;
+    align-items: center;
+    padding-top: -20px;
+}
+
+.titulo-login {  
+    font-family: 'Gilda Display', serif;
+    font-weight: 300;
+    color: white;
+    font-size: 2.5rem;
+}
+
+.login {
+    background-image: linear-gradient(rgba(5, 7, 12, .75), rgba(5, 7, 12, .75)),
+        url("https://res.cloudinary.com/dcv6aut2v/image/upload/v1697100962/fondologin_ike6yt.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; 
+} 
+
+.div-login {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);   
+    margin-top: 70px !important;
+}
+.row-login {
+    padding-bottom: 60px;
+}
+
+.btn-outline-light {
+    background-color: #95724c !important;
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: #8b653b !important;
+    color: white !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.link {
+    color: #c19b76 !important;
+}
+
+.link:hover {
+    color: #8b653b !important;
+} 
+
+.form-control:focus {
+    box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    -webkit-box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    -moz-box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    
+} 
+
+
