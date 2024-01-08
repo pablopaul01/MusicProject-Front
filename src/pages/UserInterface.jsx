@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Player from './Player'
+import Player from '../components/Player'
 import "../css/userInterface.css"
 import {getSongs} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
-import MiniPlayer from './MiniPlayer'
+import MiniPlayer from '../components/MiniPlayer'
 
 
 const UserInterface = () => {
