@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 // import "../../register/register.css"
-import { axiosInstance } from '../config/axiosInstance'
+import { axiosInstance } from '../../../config/axiosInstance'
 import Swal from 'sweetalert2'
 import Spinner from 'react-bootstrap/Spinner';
-import { GlobalContext } from '../context/GlobalContext';
-import { getCategories } from '../context/GlobalActions';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { getCategories, getSongs } from '../../../context/GlobalActions';
+
 
 
 const UploadSong = () => {
@@ -55,16 +56,18 @@ const UploadSong = () => {
       formData.append("category", formDatos.category)
       formData.append("audio", audioFile[0])
 
-      const resp = await axiosInstance.post("/", formData)
+      await axiosInstance.post("/", formData)
+      dispatch(getSongs())
       // getCategories()
       // handleCloseC()
       setLoading(false);
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: `Ocurrió un problema! Error${error.response}`,
-        text: `${error.response}`
-      })
+      console.log("error",error)
+      // Swal.fire({
+      //   icon: "error",
+      //   title: `Ocurrió un problema! Error${error.response}`,
+      //   text: `${error.response}`
+      // })
     }
   }
 

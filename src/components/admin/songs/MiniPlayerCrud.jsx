@@ -1,0 +1,181 @@
+import React, {useState, useEffect, useRef, useContext} from 'react'
+import {FaPlay, FaPause, FaBackward, FaForward,FaVolumeUp, FaTrashAlt, FaEdit } from "react-icons/fa"
+import { GlobalContext } from '../../../context/GlobalContext'
+import { SET_ISPLAYING } from '../../../context/types'
+import { formatTime } from '../../../utils/formatTime'
+import WaveSurfer from 'wavesurfer.js'
+import "../../../css/miniPlayer.css"
+import { axiosInstance } from '../../../config/axiosInstance'
+import Swal from 'sweetalert2'
+
+
+
+const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrentTimePlayer, setIsPlayingPlayer, porcentaje, setPorcentaje,setCurrentSong,currentSong}) => {
+
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState("00:00")
+  const [progress, setProgress] = useState(0)
+  const [waveForm, setWaveForm] = useState(null)
+  const {state,dispatch} = useContext(GlobalContext)
+
+
+  const audioEl = useRef("null")
+  const progressBar = useRef()
+  const waveformRef = useRef()
+
+  const createwaveform = () => {
+    const wavesurfer = WaveSurfer.create({
+      container: `#miniWaveform${song._id}`,
+      height: 20,
+      waveColor: '#C0C0C0',
+      progressColor: '#96989A',
+      fillParent: true,
+      media: audioEl.current,
+       // <- this is the important part
+    })
+    setWaveForm(wavesurfer)
+  }
+
+  const useWave = () => {
+    waveForm?.destroy()
+    createwaveform()
+  }
+  
+  const containerWave= useRef()
+
+  const handlePlay = () => {
+    setCurrentSong(song)
+    setIsPlaying(!isPlaying)
+  
+console.log("di play")
+    // if (currentSong._id !== song._id) {
+    //   console.log("entro aqui")
+    //   dispatch({type:'SET_ISPLAYING', payload: false})
+    //   console.log("isPlaying", state.isPlaying)
+    //   // dispatch({type: 'SET_CURRENT_SONG', payload: song})  
+    //   setCurrentSong(song)
+
+    //   dispatch({type: 'SET_ISPLAYING', payload: true})
+    //   dispatch({type: 'SET_CURRENT_INDEX_SONG', payload: idx})
+    //   console.log("currentSong.id", currentSong._id)
+    //   console.log("song.id", song._id)
+    // }
+    // else
+    // {
+    //   dispatch({type: 'SET_ISPLAYING', payload: !state.isPlaying})
+    // }
+  }
+
+  useEffect(() => {
+    if (isPlaying) {
+      console.log("entro al play")
+      audioEl.current?.play();
+    } else {
+      audioEl.current.pause();
+      console.log("entro al pausa")
+    }
+
+    
+  }, [isPlaying]);
+
+  useEffect(()=>{
+    if (currentSong._id !== song._id) {
+      audioEl.current.pause();
+      setIsPlaying(false)
+    }
+  },[currentSong._id])
+
+
+
+  const handleClickWave = (e) => {
+    const clickX = e.nativeEvent.offsetX;
+    const waveWidth = e.target.clientWidth;
+  }
+
+  const updateProgress= ()=>{
+    if (waveForm){
+      const porcentaje = (waveForm.getCurrentTime()/waveForm.getDuration());
+      setProgress(porcentaje)
+    }
+  }
+
+  const deleteSong = async () => {
+    try {
+      Swal.fire({
+        title: 'Esta seguro de eliminar el audio?',
+        text: "No podrás revertir los cambios!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+          const resp = await axiosInstance.delete(
+            `/${song._id}`,
+          );
+            Swal.fire(
+                'Eliminado!',
+                'El audio fue eliminado',
+                'success'
+            )
+        }
+    })
+    } catch (error) {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'No se pudo eliminar la canción',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      })
+    }
+  }
+  return (
+    <>
+        <audio src={song?.url} 
+                ref={audioEl}  
+                onLoadedData={useWave} 
+                onTimeUpdate={(e)=>{
+                    setCurrentTime(formatTime(e.target.currentTime.toFixed(2)))
+                    updateProgress()}}></audio>
+
+    <section className='container miniPlayer py-2'>
+                <div className="row px-4 d-flex gap-5 gap-md-0 justify-content-around">
+                  <div className="col-1 d-flex gap-5 ">
+                    <div className='d-flex gap-2 align-items-center'>
+                      <span onClick={handlePlay} className='miniPlay'>{currentSong?._id === song._id && isPlaying ? <FaPause/> : <FaPlay/>}</span>
+                    </div>
+                  </div>
+                  <div className="col-2 d-flex justify-content-center">
+                  <div className='d-md-flex align-items-center d-none just'>
+                      <p className='mb-0'>{currentSong?._id === song._id ? currentTime : "00:00"} / {formatTime(song?.duration)}</p>
+                    </div>
+                  </div>
+                  <div className="col-2 d-flex gap-5 justify-content-center">
+
+                    <div className='d-flex flex-column align-items-center'>
+                      <p className='mb-0'>
+                        {song?.title}
+                      </p>
+                      <p className='mb-0 artistPlayer'>
+                      {song?.artist}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-5 d-md-flex align-items-center justify-content-center d-none">
+                    <div className='miniWave w-100' id={`miniWaveform${song._id}`} ref={containerWave} onClick={e=>{
+                      handleClickWave(e)}}></div>
+                  </div>
+                  <div className='col-2 d-flex py-2 justify-content-center gap-3'>
+                    <button className='btn btn-warning d-flex justify-content-center align-items-center'><FaEdit /></button>
+                    <button className='btn btn-danger d-flex justify-content-center align-items-center' onClick={deleteSong}><FaTrashAlt /></button>
+
+                </div>
+
+                </div>
+        </section>
+    </>
+  )
+}
+
+export default MiniPlayerCrud
