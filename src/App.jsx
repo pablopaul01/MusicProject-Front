@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import UploadSong from './pages/UploadSong'
 import Home from './pages/Home'
 import UserInterface from './pages/UserInterface'
 import AudioPlayer from './pages/AudioPlayer'
@@ -23,7 +22,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path='/login' element={<LoginPage setIsLogged={setIsLogged}/>} />
-        <Route path="/upload" element={<UploadSong />} />
         <Route path="/userPage" element={<UserInterface />} />
         <Route path="/audioplayer" element={<AudioPlayer />} />
         <Route path='/songs' element={<CrudSongs />} />
