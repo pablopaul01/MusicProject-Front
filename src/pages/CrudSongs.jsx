@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {getSongs} from '../context/GlobalActions'
+import {getCategories, getSongs} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
 import MiniPlayerCrud from '../components/admin/songs/MiniPlayerCrud'
 import ModalSongs from '../components/admin/songs/ModalSongs'
@@ -14,13 +14,37 @@ const CrudSongs = () => {
     const [porcentaje, setPorcentaje] = useState(0)
     const [stateSongs, setStateSongs] = useState([])
     const {state, dispatch} = useContext(GlobalContext)
+    const [selectedCategory, setSelectedCategory] = useState(''); // Estado para la categoría seleccionada
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+      dispatch(getCategories())
+    }, [])
   
       useEffect(() => {
           dispatch(getSongs())
           setStateSongs(state.songs)
-        }, [state.songs])
+        }, [])
 
         const handleShowSongs = () => setShowSongs(true);
+
+        const handleCategoryChange = (e) => {
+          setSelectedCategory(e.target.value);
+        };
+
+        const handleSearch = (e) => {
+          setSearchTerm(e.target.value);
+        };
+      
+        const filteredSongs = state.songs
+        .filter((song) => selectedCategory === 'Filtrar por Categoría' || song.category._id === selectedCategory)
+        .filter((song) => searchTerm === '' || song.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+        if (searchTerm !== '' && filteredSongs.length === 0) {
+          // No hubo coincidencias, puedes manejarlo según tus necesidades
+          console.log('No se encontraron canciones que coincidan con la búsqueda.');
+          console.log("filteredSongs",filteredSongs);
+        }
   return (
     <div className='main'>
         <section className='container mb-5 pt-5'> 
@@ -34,18 +58,36 @@ const CrudSongs = () => {
 
                 </div>
                 <div className="col-4 d-flex gap-3 align-items-center">
-                    <select className="form-select" aria-label="Default select example">
-                        <option defaultValue={0}>Filtrar por Categoría</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
+                    <select className="form-select" aria-label="Default select example" onChange={handleCategoryChange}>
+                        <option defaultValue="">Filtrar por Categoría</option>
+                        {state.categories.map( (category,idx) => (
+                          <option key={idx} value={category._id}>{category.name}</option>
+                        ))}
                     </select>
-                    <input type="text" className="form-control" placeholder="Buscar canción..."/>
+                    <input type="text" className="form-control" placeholder="Buscar canción..." onChange={handleSearch}/>
                 </div>
             </div>
         </section>
         <section >
-          { 
-            state.songs.map( (song,idx) => (
+          { !filteredSongs.length && searchTerm === ''? (
+            state.songs?.map( (song,idx) => (
+              <MiniPlayerCrud 
+                song={song} 
+                key={song._id} 
+                idx={idx} 
+                setCurrenIndexSong={setCurrenIndexSong} 
+                setCurrentSong={setCurrentSong}
+                currentSong = {currentSong}
+                setCurrentTimePlayer={setCurrentTimePlayer} 
+                setIsPlayingPlayer={setIsPlayingPlayer}
+                waveForm={state.waveForm}
+                porcentaje={porcentaje}
+                setPorcentaje = {setPorcentaje}
+                />
+            ))
+          
+          ) :
+            filteredSongs.map( (song,idx) => (
               <MiniPlayerCrud 
                 song={song} 
                 key={song._id} 
