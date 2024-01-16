@@ -7,6 +7,9 @@ import WaveSurfer from 'wavesurfer.js'
 import "../../../css/miniPlayer.css"
 import { axiosInstance } from '../../../config/axiosInstance'
 import Swal from 'sweetalert2'
+import ModalEditSongs from './ModalEditSong'
+import { getSongs } from '../../../context/GlobalActions'
+
 
 
 
@@ -17,6 +20,7 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
   const [progress, setProgress] = useState(0)
   const [waveForm, setWaveForm] = useState(null)
   const {state,dispatch} = useContext(GlobalContext)
+  const [showSongs, setShowSongs] = useState(false);
 
 
   const audioEl = useRef("null")
@@ -46,33 +50,13 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
   const handlePlay = () => {
     setCurrentSong(song)
     setIsPlaying(!isPlaying)
-  
-console.log("di play")
-    // if (currentSong._id !== song._id) {
-    //   console.log("entro aqui")
-    //   dispatch({type:'SET_ISPLAYING', payload: false})
-    //   console.log("isPlaying", state.isPlaying)
-    //   // dispatch({type: 'SET_CURRENT_SONG', payload: song})  
-    //   setCurrentSong(song)
-
-    //   dispatch({type: 'SET_ISPLAYING', payload: true})
-    //   dispatch({type: 'SET_CURRENT_INDEX_SONG', payload: idx})
-    //   console.log("currentSong.id", currentSong._id)
-    //   console.log("song.id", song._id)
-    // }
-    // else
-    // {
-    //   dispatch({type: 'SET_ISPLAYING', payload: !state.isPlaying})
-    // }
   }
 
   useEffect(() => {
     if (isPlaying) {
-      console.log("entro al play")
       audioEl.current?.play();
     } else {
       audioEl.current.pause();
-      console.log("entro al pausa")
     }
 
     
@@ -119,6 +103,7 @@ console.log("di play")
                 'El audio fue eliminado',
                 'success'
             )
+            dispatch(getSongs())
         }
     })
     } catch (error) {
@@ -130,6 +115,8 @@ console.log("di play")
       })
     }
   }
+
+  const handleShowSongs = () => setShowSongs(true);
   return (
     <>
         <audio src={song?.url} 
@@ -167,9 +154,9 @@ console.log("di play")
                       handleClickWave(e)}}></div>
                   </div>
                   <div className='col-2 d-flex py-2 justify-content-center gap-3'>
-                    <button className='btn btn-warning d-flex justify-content-center align-items-center'><FaEdit /></button>
+                    <button className='btn btn-warning d-flex justify-content-center align-items-center' onClick={handleShowSongs}><FaEdit /></button>
                     <button className='btn btn-danger d-flex justify-content-center align-items-center' onClick={deleteSong}><FaTrashAlt /></button>
-
+                    <ModalEditSongs showSongs={showSongs} setShowSongs={setShowSongs} song={song}/>
                 </div>
 
                 </div>
