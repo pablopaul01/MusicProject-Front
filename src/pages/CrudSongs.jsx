@@ -34,6 +34,7 @@ const CrudSongs = () => {
 
         const handleCategoryChange = (e) => {
           setSelectedCategory(e.target.value);
+          console.log("categoria elegida",e.target.value)
         };
 
         const handleSearch = (e) => {
@@ -41,14 +42,9 @@ const CrudSongs = () => {
         };
       
         const filteredSongs = state.songs
-        .filter((song) => selectedCategory === 'Filtrar por Categoría' || song.category._id === selectedCategory)
+        .filter((song) =>  selectedCategory==='Filtrar por Categoría' || song.category._id === selectedCategory)
         .filter((song) => searchTerm === '' || song.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
-        if (searchTerm !== '' && filteredSongs.length === 0) {
-          // No hubo coincidencias, puedes manejarlo según tus necesidades
-          console.log('No se encontraron canciones que coincidan con la búsqueda.');
-          console.log("filteredSongs",filteredSongs);
-        }
   return (
     <div className='main'>
         <section className='container mb-5 pt-5'> 
@@ -74,22 +70,9 @@ const CrudSongs = () => {
             </div>
         </section>
         <section >
-          { !filteredSongs.length && searchTerm === ''? (
-            state.songs?.map( (song,idx) => (
-              <MiniPlayerCrud 
-                song={song} 
-                key={song._id} 
-                idx={idx} 
-                setCurrenIndexSong={setCurrenIndexSong} 
-                setCurrentSong={setCurrentSong}
-                currentSong = {currentSong}
-                setCurrentTimePlayer={setCurrentTimePlayer} 
-                setIsPlayingPlayer={setIsPlayingPlayer}
-                waveForm={state.waveForm}
-                porcentaje={porcentaje}
-                setPorcentaje = {setPorcentaje}
-                />
-            ))
+          { filteredSongs.length === 0? (
+
+            <p className='ms-5 artistPlayer'>No se encontraron coincidencias...</p>
           
           ) :
             filteredSongs.map( (song,idx) => (
