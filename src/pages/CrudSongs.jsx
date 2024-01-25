@@ -3,6 +3,8 @@ import {getCategories, getSongs} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
 import MiniPlayerCrud from '../components/admin/songs/MiniPlayerCrud'
 import ModalSongs from '../components/admin/songs/ModalSongs'
+import ModalCategory from '../components/admin/songs/ModalCategory'
+import { set } from 'react-hook-form'
 
 
 const CrudSongs = () => {
@@ -11,6 +13,7 @@ const CrudSongs = () => {
     const [currentTimePlayer, setCurrentTimePlayer] = useState("00:00")
     const [isPlayingPlayer, setIsPlayingPlayer] = useState(false)
     const [showSongs, setShowSongs] = useState(false);
+    const [showCategory, setShowCategory] = useState(false);
     const [porcentaje, setPorcentaje] = useState(0)
     const [stateSongs, setStateSongs] = useState([])
     const {state, dispatch} = useContext(GlobalContext)
@@ -27,6 +30,7 @@ const CrudSongs = () => {
         }, [])
 
         const handleShowSongs = () => setShowSongs(true);
+        const handleShowCategory = () => setShowCategory(true);
 
         const handleCategoryChange = (e) => {
           setSelectedCategory(e.target.value);
@@ -51,9 +55,10 @@ const CrudSongs = () => {
             <div className="row">
                 <div className="col-4 d-flex gap-3">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Agregar canción</button>  
-                    <button className='btn btn-outline-light'>Crear Categoría</button>  
+                    <button className='btn btn-outline-light'onClick={handleShowCategory}>Crear Categoría</button>  
                 </div>
                 <ModalSongs showSongs={showSongs} setShowSongs={setShowSongs}/>
+                <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory}/>
                 <div className="col-4 d-flex align-items-center">
 
                 </div>
