@@ -11,7 +11,7 @@ export const initialState = {
     currentTime: "00:00",
     porcentaje:0,
     changeProgress: false,
-
+    users: []
 }
 
 export const GlobalContext = createContext({

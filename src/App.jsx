@@ -7,6 +7,7 @@ import PrivateRoutesUser from './Routes/PrivateRoutesUser'
 import PrivateRoutesAdmin from './Routes/PrivateRoutesAdmin'
 import LoginPage from './pages/LoginPage'
 import CrudSongs from './pages/CrudSongs'
+import CrudUsers from './pages/CrudUsers'
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/userPage" element={<UserInterface />} />
         <Route path="/audioplayer" element={<AudioPlayer />} />
         <Route path='/songs' element={<CrudSongs />} />
+        <Route path='/users' element={<CrudUsers />} />
       </Routes>
     </>
   )
