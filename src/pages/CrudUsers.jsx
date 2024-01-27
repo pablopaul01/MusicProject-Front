@@ -6,11 +6,12 @@ import ModalSongs from '../components/admin/songs/ModalSongs'
 import ModalCategory from '../components/admin/songs/ModalCategory'
 import DataTable from 'react-data-table-component';
 import { set } from 'react-hook-form'
-
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import { ImBlocked } from "react-icons/im";
-import "../css/crudUser.css"
 import ModalUsers from '../components/admin/users/ModalUsers'
+import Swal from 'sweetalert2'
+import "../css/crudUser.css"
+import { axiosInstance } from '../config/axiosInstance'
 
 const CrudUsers = () => {
 
@@ -80,7 +81,7 @@ const CrudUsers = () => {
                     <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                         <button className="btn btn-warning btn-sm d-flex align-items-center " title="Editar"  ><FaRegEdit className='t-1'/></button>
                         <button className="btn btn-dark btn-sm d-flex align-items-center" title="Suspender/Activar" ><ImBlocked id='t-1'/></button>
-                        <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar" ><FaTrashAlt className='t-1'/></button>
+                        <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar"  onClick={() => { deleteUser(row._id) }}><FaTrashAlt className='t-1'/></button>
                     </div>
                 )
             },
@@ -91,6 +92,39 @@ const CrudUsers = () => {
       
         const filteredUsers = state.users
         .filter((user) => searchTerm === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+        const deleteUser = async (row) => {
+          // const token = localStorage.getItem("token");
+          // const decoded = jwtDecode(token);   
+          try {
+              Swal.fire({
+                  title: 'Esta seguro de eliminar el usuario?',
+                  text: "No podrás revertir los cambios!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Si, eliminar!'
+              }).then(async (result) => {
+                  if (result.isConfirmed) {
+                      await axiosInstance.delete(`/usuario/${row}`);
+                      Swal.fire(
+                          'Eliminado!',
+                          'El usuario fue eliminado',
+                          'success'
+                      )
+                     dispatch( getUsers());
+                  }
+              })
+          } catch (error) {
+              Swal.fire({
+                  icon: "error",
+                  title: `Ocurrió un problema! Error${error.response.data.status}`,
+                  text: `${error.response.data.mensaje}`
+              })
+          }
+          
+      }
 
   return (
     <div className='main'>
