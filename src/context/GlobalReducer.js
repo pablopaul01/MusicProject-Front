@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, GET_SONGS, SET_WAVEFORM, SET_CURRENT_TIME, SET_CURRENT_SONG, SET_ISPLAYING, SET_PORCENTAJE, SET_CURRENT_INDEX_SONG, SET_CHANGE_PROGRESS  } from "./types";
+import { GET_USERS, GET_CATEGORIES, GET_SONGS, SET_WAVEFORM, SET_CURRENT_TIME, SET_CURRENT_SONG, SET_ISPLAYING, SET_PORCENTAJE, SET_CURRENT_INDEX_SONG, SET_CHANGE_PROGRESS  } from "./types";
 
 export const GlobalReducer = (state, action) => {
     switch (action?.type) {
@@ -7,6 +7,11 @@ export const GlobalReducer = (state, action) => {
                 ...state,
                 songs:action?.payload
             }
+        case GET_USERS:
+            return {
+                ...state,
+                users: action?.payload
+            };            
         case GET_CATEGORIES:
             return {
                 ...state,
