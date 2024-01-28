@@ -105,8 +105,8 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
             <p className="text-danger my-1">{errors.username?.message}</p>
             <div className="mb-2 pt-2">
               <label className="form-label">Rol de Usuario</label>
-              <select name="role" className="form-select" {...register("role")}>
-                <option selected value="user">
+              <select defaultValue={"user"} name="role" className="form-select" {...register("role")}>
+                <option value="user">
                   user
                 </option>
                 <option value="admin">admin</option>
