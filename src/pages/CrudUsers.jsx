@@ -11,7 +11,9 @@ import { ImBlocked } from "react-icons/im";
 import ModalUsers from '../components/admin/users/ModalUsers'
 import Swal from 'sweetalert2'
 import "../css/crudUser.css"
+import { MdAudiotrack } from "react-icons/md";
 import { axiosInstance } from '../config/axiosInstance'
+import ModalEditUser from '../components/admin/users/ModalEditUser'
 
 const CrudUsers = () => {
 
@@ -19,18 +21,28 @@ const CrudUsers = () => {
     const [showCategory, setShowCategory] = useState(false);
     const {state, dispatch} = useContext(GlobalContext) // Estado para la categoría seleccionada
     const [searchTerm, setSearchTerm] = useState('');
+    const [showEdit, setShowEdit] = useState(false);
+    const [idUser, setIdUser] = useState("")
 
     useEffect(() => {
       dispatch(getUsers())
     }, [])
-  
+
+    const handleClose = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
+
+    const handleClickEdit = (row) => {
+        handleShowEdit();
+        setIdUser(row)
+    }
+
       // useEffect(() => {
       //     dispatch(getSongs())
       //     setStateSongs(state.songs)
       //   }, [])
-  console.log("state users", state.users)
+
         const handleShowSongs = () => setShowSongs(true);
-        const handleShowCategory = () => setShowCategory(true);
+        // const handleShowCategory = () => setShowCategory(true);
 
         const handleCategoryChange = (e) => {
           setSelectedCategory(e.target.value);
@@ -44,51 +56,62 @@ const CrudUsers = () => {
         const columns = [
           {
             name: '#',
-            cell: (row, index) => index+1,
-            sortable: true,
-            maxWidth: "10px"
+            selector: (row, index) => index+1,
+            width: "fit-content",
           },
           {
             name: 'Nombre',
             selector: row => row.name,
             sortable: true,
+            center: "true",
           },
           {
             name: 'Apellido',
             selector: row => row.lastname,
             sortable: true,
+            center: "true",
           },
           {
             name: 'Email',
             selector: row => row.email,
             sortable: true,
-            center: true,
+            center: "true",
           },
           {
             name: 'Rol',
             selector: row => row.role,
             sortable: true,
+            width: "fit-content",
+            center: "true",
           },
           {
             name: 'Estado',
             selector: row => (row.state === true ? 'Activo' : 'Inactivo'),
-
+                        center: "true",
+                        width: "fit-content",
           },
           {
             name: "Acciones",
             selector: row => {
                 return (
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="btn btn-warning btn-sm d-flex align-items-center " title="Editar"  ><FaRegEdit className='t-1'/></button>
-                        <button className="btn btn-dark btn-sm d-flex align-items-center" title="Suspender/Activar" ><ImBlocked id='t-1'/></button>
+                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" , minWidth: "150px"}}>
+                        <button className="btn btn-warning btn-sm d-flex align-items-center " title="Editar"  onClick={() => { handleClickEdit(row._id) }}><FaRegEdit className='t-1'/></button>
+                        <button className="btn btn-dark btn-sm d-flex align-items-center" title="Suspender/Activar" onClick={() => { disabledUser(row._id) }}><ImBlocked id='t-1'/></button>
                         <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar"  onClick={() => { deleteUser(row._id) }}><FaTrashAlt className='t-1'/></button>
+                        <button className="btn btn-light btn-sm d-flex align-items-center" title="Asignar Audios" ><MdAudiotrack  className='t-1'/></button>
                     </div>
                 )
             },
-            center: true,
-            minWidth: "150px"
+            center: "true",
         }
         ];
+
+        const paginationComponentOptions = {
+          rowsPerPageText: 'Filas por página',
+          rangeSeparatorText: 'de',
+          selectAllRowsItem: true,
+          selectAllRowsItemText: 'Todos',
+      };
       
         const filteredUsers = state.users
         .filter((user) => searchTerm === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -126,6 +149,28 @@ const CrudUsers = () => {
           
       }
 
+
+      const disabledUser = async (row) => {
+        // const token = localStorage.getItem("token");
+        try {
+            const { data } = await axiosInstance.put(`/desactivar/usuario/${row}`);
+           
+            Swal.fire(
+                'Bien hecho!',
+                `El usuario fue ${data.user.state ? ("activado") : ("desactivado")}!`,
+                'success'
+            )
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: `Ocurrió un problema! Error${error.response.data.status}`,
+                text: `${error.response.data.mensaje}`
+            })
+        } finally {
+            dispatch(getUsers());
+        }
+    }
+
   return (
     <div className='main'>
         <section className='container mb-5 pt-5'> 
@@ -149,7 +194,7 @@ const CrudUsers = () => {
             <p className='ms-5 artistPlayer'>No se encontraron coincidencias...</p>
           
           ) :
-          (
+          (<>
             <DataTable
 			        columns={columns}
 			        data={filteredUsers}
@@ -157,10 +202,14 @@ const CrudUsers = () => {
               theme='dark'
               highlightOnHover
 		          pointerOnHover
+              paginationComponentOptions={paginationComponentOptions}
 
 		        />
+            <ModalEditUser showEdit={showEdit} handleClose={handleClose} setShowEdit={setShowEdit} idUser={idUser}/>
+            </>
           )
           }
+
         </section>
 
     </div>
