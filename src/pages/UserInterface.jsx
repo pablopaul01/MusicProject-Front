@@ -4,6 +4,9 @@ import "../css/userInterface.css"
 import {getSongs} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
 import MiniPlayer from '../components/MiniPlayer'
+import { useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { axiosInstance } from '../config/axiosInstance'
 
 
 const UserInterface = () => {
@@ -11,11 +14,30 @@ const UserInterface = () => {
   const [currentTimePlayer, setCurrentTimePlayer] = useState("00:00")
   const [isPlayingPlayer, setIsPlayingPlayer] = useState(false)
   const [porcentaje, setPorcentaje] = useState(0)
+  const [userData, SetUserData] = useState({});
   const {state, dispatch} = useContext(GlobalContext)
 
+  const {id} = useParams()
     useEffect(() => {
-        dispatch(getSongs())
+        // dispatch(getSongs())
+        getUserById()
       }, [])
+
+      const getUserById = async () => {
+        // const token = localStorage.getItem("token");
+        if (id) {
+          try {
+            const response = await axiosInstance.get(`/usuario/${id}`);
+            SetUserData(response.data.user);
+          } catch (error) {
+            Swal.fire({
+              icon: "error",
+              title: `Ocurrió un problema! Error${error}`,
+              text: `${error}`,
+            });
+          }
+        }
+      };
       
       // state.id="1231231asd"
 // useEffect(() => {
@@ -27,7 +49,7 @@ console.log(state)
     <div className='main'>
         <section >
           { 
-            state.songs.map( (song,idx) => (
+            userData?.audioList?.map( (song,idx) => (
               <MiniPlayer 
                 song={song} 
                 key={song._id} 
