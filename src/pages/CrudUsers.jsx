@@ -1,11 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {getCategories, getSongs, getUsers} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
-import MiniPlayerCrud from '../components/admin/songs/MiniPlayerCrud'
-import ModalSongs from '../components/admin/songs/ModalSongs'
 import ModalCategory from '../components/admin/songs/ModalCategory'
 import DataTable from 'react-data-table-component';
-import { set } from 'react-hook-form'
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import { ImBlocked } from "react-icons/im";
 import ModalUsers from '../components/admin/users/ModalUsers'
@@ -14,40 +11,47 @@ import "../css/crudUser.css"
 import { MdAudiotrack } from "react-icons/md";
 import { axiosInstance } from '../config/axiosInstance'
 import ModalEditUser from '../components/admin/users/ModalEditUser'
+import ModalUsersSongs from '../components/admin/users/ModalUsersSongs';
+
 
 const CrudUsers = () => {
 
     const [showSongs, setShowSongs] = useState(false);
+    const [showUsersSongs, setShowUsersSongs] = useState(false);
     const [showCategory, setShowCategory] = useState(false);
     const {state, dispatch} = useContext(GlobalContext) // Estado para la categoría seleccionada
     const [searchTerm, setSearchTerm] = useState('');
     const [showEdit, setShowEdit] = useState(false);
     const [idUser, setIdUser] = useState("")
+    const [idUserSong, setIdUserSong] = useState("")
+    const [userData, SetUserData] = useState({});
+    const [stateSongs, setStateSongs] = useState([])
 
     useEffect(() => {
       dispatch(getUsers())
+      dispatch(getSongs())
+      setStateSongs(state.songs)
     }, [])
 
     const handleClose = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
+    const handleShowUsersSongs = () => setShowUsersSongs(true);
+    let filteredSongs = []
+    
 
     const handleClickEdit = (row) => {
         handleShowEdit();
         setIdUser(row)
     }
 
-      // useEffect(() => {
-      //     dispatch(getSongs())
-      //     setStateSongs(state.songs)
-      //   }, [])
+    const handleClickUserSong = (row) => {
+      handleShowUsersSongs();
+      setIdUserSong(row)
+      console.log("userData",userData)
+   
+  }
 
         const handleShowSongs = () => setShowSongs(true);
-        // const handleShowCategory = () => setShowCategory(true);
-
-        const handleCategoryChange = (e) => {
-          setSelectedCategory(e.target.value);
-          console.log("categoria elegida",e.target.value)
-        };
 
         const handleSearch = (e) => {
           setSearchTerm(e.target.value);
@@ -98,7 +102,7 @@ const CrudUsers = () => {
                         <button className="btn btn-warning btn-sm d-flex align-items-center " title="Editar"  onClick={() => { handleClickEdit(row._id) }}><FaRegEdit className='t-1'/></button>
                         <button className="btn btn-dark btn-sm d-flex align-items-center" title="Suspender/Activar" onClick={() => { disabledUser(row._id) }}><ImBlocked id='t-1'/></button>
                         <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar"  onClick={() => { deleteUser(row._id) }}><FaTrashAlt className='t-1'/></button>
-                        <button className="btn btn-light btn-sm d-flex align-items-center" title="Asignar Audios" ><MdAudiotrack  className='t-1'/></button>
+                        <button className="btn btn-light btn-sm d-flex align-items-center" title="Asignar Audios" onClick={() => { handleClickUserSong(row._id)}} ><MdAudiotrack  className='t-1'/></button>
                     </div>
                 )
             },
@@ -171,6 +175,27 @@ const CrudUsers = () => {
         }
     }
 
+
+    const getUserById = async () => {
+      // const token = localStorage.getItem("token");
+      if (idUserSong) {
+        try {
+          const response = await axiosInstance.get(`/usuario/${idUserSong}`);
+          SetUserData(response.data.user);
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: `Ocurrió un problema! Error${error}`,
+            text: `${error}`,
+          });
+        }
+      }
+    };
+    
+    useEffect(() => {
+      getUserById();
+    }, [idUserSong]);
+
   return (
     <div className='main'>
         <section className='container mb-5 pt-5'> 
@@ -206,6 +231,7 @@ const CrudUsers = () => {
 
 		        />
             <ModalEditUser showEdit={showEdit} handleClose={handleClose} setShowEdit={setShowEdit} idUser={idUser}/>
+            <ModalUsersSongs showUsersSongs={showUsersSongs} setShowUsersSongs={setShowUsersSongs} idUserSong={idUserSong} userData={userData} SetUserData={SetUserData} getUserById={getUserById}/>
             </>
           )
           }

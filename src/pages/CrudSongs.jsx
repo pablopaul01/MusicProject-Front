@@ -17,7 +17,7 @@ const CrudSongs = () => {
     const [porcentaje, setPorcentaje] = useState(0)
     const [stateSongs, setStateSongs] = useState([])
     const {state, dispatch} = useContext(GlobalContext)
-    const [selectedCategory, setSelectedCategory] = useState(''); // Estado para la categoría seleccionada
+    const [selectedCategory, setSelectedCategory] = useState('Filtrar por Categoría'); // Estado para la categoría seleccionada
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -60,7 +60,7 @@ const CrudSongs = () => {
                 </div>
                 <div className="col-4 d-flex gap-3 align-items-center">
                     <select className="form-select" aria-label="Default select example" onChange={handleCategoryChange}>
-                        <option defaultValue="">Filtrar por Categoría</option>
+                        <option >Filtrar por Categoría</option>
                         {state.categories.map( (category,idx) => (
                           <option key={idx} value={category._id}>{category.name}</option>
                         ))}
