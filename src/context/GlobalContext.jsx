@@ -3,6 +3,7 @@ import { createContext } from 'react'
 
 export const initialState = {
     songs: [],
+    songsByUser: [],
     categories: [],
     currentSong: {},
     isPlaying: false,

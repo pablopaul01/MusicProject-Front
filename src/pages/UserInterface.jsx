@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import Player from '../components/Player'
 import "../css/userInterface.css"
-import {getSongs} from '../context/GlobalActions'
+import {getSongs, getSongsByUser} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
 import MiniPlayer from '../components/MiniPlayer'
 import { useParams } from 'react-router-dom'
@@ -19,8 +19,8 @@ const UserInterface = () => {
 
   const {id} = useParams()
     useEffect(() => {
-        // dispatch(getSongs())
-        getUserById()
+        dispatch(getSongsByUser(id))
+        // getUserById()
       }, [])
 
       const getUserById = async () => {
@@ -38,18 +38,12 @@ const UserInterface = () => {
           }
         }
       };
-      
-      // state.id="1231231asd"
-// useEffect(() => {
-// console.log("id", state.id)
-// }, [state.id])
-console.log(state)
 
   return (
     <div className='main'>
-        <section >
+        <section className='pt-5'>
           { 
-            userData?.audioList?.map( (song,idx) => (
+            state.songsByUser?.map( (song,idx) => (
               <MiniPlayer 
                 song={song} 
                 key={song._id} 

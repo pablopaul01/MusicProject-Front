@@ -36,17 +36,17 @@ useEffect(() => {
 }, [porcentaje])
 
 useEffect(() => {
-  if (Object.keys(state.currentSong).length === 0 && state.songs.length > 0){
-    dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[0]})
+  if (Object.keys(state.currentSong).length === 0 && state.songsByUser?.length > 0){
+    dispatch({type: 'SET_CURRENT_SONG', payload: state.songsByUser[0]})
   } 
 })
 
 const skipSong = ( forwards = true) => {
   dispatch({type:'SET_ISPLAYING', payload: false})
   if (forwards) {
-    if (state.currentIndexSong + 1 < state.songs.length) {
+    if (state.currentIndexSong + 1 < state.songsByUser.length) {
       dispatch({type:'SET_CURRENT_INDEX_SONG',payload: state.currentIndexSong+1})
-      dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[state.currentIndexSong+1]})
+      dispatch({type: 'SET_CURRENT_SONG', payload: state.songsByUser[state.currentIndexSong+1]})
       dispatch({type: 'SET_ISPLAYING', payload: true})
     }
   }
@@ -54,7 +54,7 @@ const skipSong = ( forwards = true) => {
     if (state.currentIndexSong -1 >= 0) {
 
       dispatch({type:'SET_CURRENT_INDEX_SONG',payload: state.currentIndexSong-1})
-      dispatch({type: 'SET_CURRENT_SONG', payload: state.songs[state.currentIndexSong-1]})
+      dispatch({type: 'SET_CURRENT_SONG', payload: state.songsByUser[state.currentIndexSong-1]})
       dispatch({type: 'SET_ISPLAYING', payload: true})
     }
   }
