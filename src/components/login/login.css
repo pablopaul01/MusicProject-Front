@@ -3,8 +3,6 @@
 
 
 .titulo {
-    display: flex;
-    align-items: center;
     padding-top: -20px;
 }
 
@@ -17,9 +15,11 @@
 
 .login {
     background-image: linear-gradient(rgba(5, 7, 12, .75), rgba(5, 7, 12, .75)),
-        url("https://res.cloudinary.com/dcv6aut2v/image/upload/v1697100962/fondologin_ike6yt.jpg");
+        url("https://res.cloudinary.com/dtkrptodh/image/upload/v1706727270/Medias/2_vecrjg.jpg");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
 } 
 
 .div-login {
@@ -31,10 +31,10 @@
     padding-bottom: 60px;
 }
 
-.btn-outline-light {
+/* .btn-outline-light {
     background-color: #95724c !important;
     color: white;
-}
+} */
 
 .btn-outline-light:hover {
     background-color: #8b653b !important;
