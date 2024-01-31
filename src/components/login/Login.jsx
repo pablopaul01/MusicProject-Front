@@ -9,6 +9,8 @@ import Swal from 'sweetalert2'
 import { FaEye } from 'react-icons/fa'
 import { FaEyeSlash } from 'react-icons/fa'
 import Spinner from 'react-bootstrap/Spinner';
+import { jwtDecode } from 'jwt-decode'
+
 
 
 const Login = ({setIsLogged}) => {
@@ -30,7 +32,18 @@ const Login = ({setIsLogged}) => {
             setLoading(true);
             const response = await axiosInstance.post("/login", data)
             localStorage.setItem("token", response.data.token);
-            navigate("/");
+            if (response.data.token) {
+                const decode = jwtDecode(response.data.token);
+                console.log("entro al login")
+                if (decode.role === "user") {
+                    navigate(`/audioPlayer/${decode.sub}`);
+                }
+                else
+                {
+                    navigate(`/users`);
+                }
+            }
+
             Swal.fire({
                 icon: "success",
                 title: "Bienvenido"
@@ -39,8 +52,8 @@ const Login = ({setIsLogged}) => {
         } catch (error) {
             Swal.fire({
                 icon: "error",
-                title: `Ocurrió un problema! Error${error.response.data.status}`,
-                text: `${error.response.data.mensaje}`
+                title: `Ocurrió un problema! Error${error.response}`,
+                text: `${error.response}`
             })
         } finally {
 
@@ -59,8 +72,8 @@ const Login = ({setIsLogged}) => {
                 <input
                     type="email"
                     className="form-control"
-                    name="username"
-                    {...register("username")}
+                    name="email"
+                    {...register("email")}
                     maxLength={40}
                 />
             </div>

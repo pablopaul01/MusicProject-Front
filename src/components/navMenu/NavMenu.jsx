@@ -10,7 +10,7 @@ const NavMenu = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary d-flex justify-content-between ps-5 pe-5"  data-bs-theme="dark">
 
-      <Navbar.Brand href="#home">Luis Isa</Navbar.Brand>
+      <Navbar.Brand href="#home"><img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706725888/Medias/logo-h.png" alt="logo" style={{width:"7rem"}}/></Navbar.Brand>
       <div>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
