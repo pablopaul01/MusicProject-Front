@@ -23,12 +23,16 @@ function App() {
     <>
       <NavMenu isLogged={isLogged} setIsLogged={setIsLogged} />
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path='/login' element={<LoginPage setIsLogged={setIsLogged}/>} />
+        {/* <Route path="/" element={<Home/>} /> */}
+        <Route path='/' element={<LoginPage setIsLogged={setIsLogged}/>} />
+        
+      <Route element={<PrivateRoutesUser />}>
         <Route path="/audioPlayer/:id" element={<UserInterface />} />
-        {/* <Route path="/audioplayer" element={<AudioPlayer />} /> */}
+      </Route>
+      <Route element={<PrivateRoutesAdmin />}>
         <Route path='/songs' element={<CrudSongs />} />
         <Route path='/users' element={<CrudUsers />} />
+        </Route>
       </Routes>
     </>
   )

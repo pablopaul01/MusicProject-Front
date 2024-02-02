@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import "./login.css"
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,6 +10,7 @@ import { FaEye } from 'react-icons/fa'
 import { FaEyeSlash } from 'react-icons/fa'
 import Spinner from 'react-bootstrap/Spinner';
 import { jwtDecode } from 'jwt-decode'
+import { GlobalContext } from '../../context/GlobalContext'
 
 
 
@@ -17,7 +18,7 @@ const Login = ({setIsLogged}) => {
 
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false);
-
+    const {state,dispatch} = useContext(GlobalContext)
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(LOGIN_SCHEMA)
     })
@@ -43,7 +44,7 @@ const Login = ({setIsLogged}) => {
                     navigate(`/users`);
                 }
             }
-
+            dispatch({type: 'SET_IS_LOGGED', payload: true})
             Swal.fire({
                 icon: "success",
                 title: "Bienvenido"
