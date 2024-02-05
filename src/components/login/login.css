@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Gilda+Display&family=Roboto:wght@100;300&display=swap');
 
-
+@font-face {
+    font-family: "Mosk";
+    src: url("../../assets/fonts/Mosk Medium 500.ttf");
+}
 
 .titulo {
     padding-top: -20px;
 }
 
 .titulo-login {  
-    font-family: 'Gilda Display', serif;
-    font-weight: 300;
+    font-family: "Mosk";
     color: white;
     font-size: 2.5rem;
 }
@@ -37,7 +39,7 @@
 } */
 
 .btn-outline-light:hover {
-    background-color: #8b653b !important;
+    background-color: #7F9054  !important;
     color: white !important;
 }
 
@@ -46,11 +48,11 @@ a {
 }
 
 .link {
-    color: #c19b76 !important;
+    color: #96989A !important;
 }
 
 .link:hover {
-    color: #8b653b !important;
+    color: #D2D3D4 !important;
 } 
 
 .form-control:focus {

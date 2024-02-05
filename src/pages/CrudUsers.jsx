@@ -121,7 +121,7 @@ const CrudUsers = () => {
         .filter((user) => searchTerm === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
         const deleteUser = async (row) => {
-          // const token = localStorage.getItem("token");
+          const token = localStorage.getItem("token");
           // const decoded = jwtDecode(token);   
           try {
               Swal.fire({
@@ -134,7 +134,11 @@ const CrudUsers = () => {
                   confirmButtonText: 'Si, eliminar!'
               }).then(async (result) => {
                   if (result.isConfirmed) {
-                      await axiosInstance.delete(`/usuario/${row}`);
+                      await axiosInstance.delete(`/usuario/${row}`, {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        }
+                      });
                       Swal.fire(
                           'Eliminado!',
                           'El usuario fue eliminado',

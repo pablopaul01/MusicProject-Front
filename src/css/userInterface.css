@@ -1,8 +1,16 @@
 .main {
     height: 100vh;
     background-color: #171717;
+    color: #fff;
 }
 
 .lamparas {
-    height: 220px;
+    height: 80px;
+}
+
+.cabecera {
+    max-height: 20%;
+    background: url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707091178/Medias/CABECERA-V_a1jpsn.png") repeat;
+    background-size: contain;
+    height: 80px;
 }

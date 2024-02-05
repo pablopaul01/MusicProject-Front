@@ -35,7 +35,6 @@ const Login = ({setIsLogged}) => {
             localStorage.setItem("token", response.data.token);
             if (response.data.token) {
                 const decode = jwtDecode(response.data.token);
-                console.log("entro al login")
                 if (decode.role === "user") {
                     navigate(`/audioPlayer/${decode.sub}`);
                 }
@@ -45,6 +44,7 @@ const Login = ({setIsLogged}) => {
                 }
             }
             dispatch({type: 'SET_IS_LOGGED', payload: true})
+            localStorage.setItem("localIsLogged", true);
             Swal.fire({
                 icon: "success",
                 title: "Bienvenido"
@@ -119,10 +119,6 @@ const Login = ({setIsLogged}) => {
                     )
             }
 
-            <div className="mt-3 text-center" id="btn-registro">
-                <span>¿No tienes una cuenta registrada?
-                    <Link to="/registro" className="btn link">Regístrate</Link></span>
-            </div>
             <div className="text-center">
                 <Link to="/error" className="btn link mb-4">¿Olvidaste tu contraseña?</Link>
             </div>

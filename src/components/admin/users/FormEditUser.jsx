@@ -34,9 +34,13 @@ const FormEditUser = ({ showEdit, setShowEdit, handleClose, idUser }) => {
   });
   
   const getUserById = async () => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     try {
-      const response = await axiosInstance.get(`/usuario/${idUser}`);
+      const response = await axiosInstance.get(`/usuario/${idUser}`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+      }
+      });
       SetUserData(response.data.user);
       setRole(response.data.user.role);
     } catch (error) {
@@ -47,6 +51,7 @@ const FormEditUser = ({ showEdit, setShowEdit, handleClose, idUser }) => {
       });
     }
   };
+  
   useEffect(() => {
     getUserById();
   }, []);

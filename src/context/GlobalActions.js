@@ -1,7 +1,10 @@
+import { jwtDecode } from "jwt-decode";
 import { axiosInstance } from "../config/axiosInstance";
 import { GET_SONGS, GET_CATEGORIES, GET_USERS, GET_SONGS_BY_USER } from "./types";
 
+
 export const getSongs = async () => {
+    // const token = localStorage.getItem("token");
     try {
         const response = await axiosInstance.get('/')
         return {
@@ -14,8 +17,13 @@ export const getSongs = async () => {
 }
 
 export const getSongsByUser = async (id) => {
+    const token = localStorage.getItem("token");
     try {
-        const response = await axiosInstance.get(`/usuario/${id}`)
+        const response = await axiosInstance.get(`/usuario/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return {
             type:GET_SONGS_BY_USER,
             payload: response.data.user.audioList
@@ -38,8 +46,13 @@ export const getCategories = async () => {
 }
 
 export const getUsers = async () => {
+    const token = localStorage.getItem("token");
     try {
-        const response = await axiosInstance.get('/usuarios')
+        const response = await axiosInstance.get('/usuarios', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return {
             type:GET_USERS,
             payload: response.data.users

@@ -1,0 +1,23 @@
+.navMenu {
+    background-color: #7F9054;
+    color: #fff;
+}
+
+
+
+.itemDropdown {
+    color: #7F9054;
+    text-decoration: none;
+}
+
+
+.dropDown:hover {
+    background-color: #7F9054;
+    .itemDropdown {
+        color: #fff;
+    }
+}
+
+.itemMenu {
+    color: #fff !important
+}

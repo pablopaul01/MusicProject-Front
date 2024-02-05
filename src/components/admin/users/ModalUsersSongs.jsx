@@ -149,7 +149,11 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
   
   const handleClickAdd = async (row) => {
     try {
-      const response = await axiosInstance.post(`/usuario/audios/${userData._id}`,{"_id": row});
+      const response = await axiosInstance.post(`/usuario/audios/${userData._id}`,{"_id": row}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      });
       Swal.fire({
         icon: "success",
         title: "Canción agregada con éxito",
