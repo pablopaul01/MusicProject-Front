@@ -35,3 +35,7 @@
 #waveform {
     min-width: none;
   }
+
+input {
+    accent-color: #7F9054;
+}

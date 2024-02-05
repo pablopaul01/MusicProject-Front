@@ -41,12 +41,24 @@ const UserInterface = () => {
 
   return (
     <div className='main'>
-      <div className='container-fluid'>
+      <div className='container-fluid cabecera'>
         <div className='row'>
           <div className='col d-flex justify-content-around'>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706735330/Medias/LAMPARAS-4_whhkxt.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706735345/Medias/LAMPARAS-8_sjslie.png" alt="" className='lamparas'/>
+            {/* <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706735330/Medias/LAMPARAS-4_whhkxt.png" alt="" className='lamparas'/>
+            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066384/Medias/LAMPARAS-6_lbeoks.png" alt="" className='lamparas'/>
+            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066286/Medias/LAMPARAS-2_iowodr.png" alt="" className='lamparas'/>
+            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066384/Medias/LAMPARAS-6_lbeoks.png" alt="" className='lamparas'/>
+            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066282/Medias/LAMPARAS-1_xvitz5.png" alt="" className='lamparas'/>
+            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066384/Medias/LAMPARAS-6_lbeoks.png" alt="" className='lamparas'/>
+            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706735345/Medias/LAMPARAS-8_sjslie.png" alt="" className='lamparas'/> */}
           </div>
+        </div>
+      </div>
+      <div className='container-fluid'>
+        <div className='pt-5 text-center'>
+              <h4>
+                Canciones disponibles
+                </h4>
         </div>
       </div>
         <section className='pt-5 '>

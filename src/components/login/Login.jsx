@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import "./login.css"
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,6 +10,7 @@ import { FaEye } from 'react-icons/fa'
 import { FaEyeSlash } from 'react-icons/fa'
 import Spinner from 'react-bootstrap/Spinner';
 import { jwtDecode } from 'jwt-decode'
+import { GlobalContext } from '../../context/GlobalContext'
 
 
 
@@ -17,7 +18,7 @@ const Login = ({setIsLogged}) => {
 
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false);
-
+    const {state,dispatch} = useContext(GlobalContext)
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(LOGIN_SCHEMA)
     })
@@ -34,7 +35,6 @@ const Login = ({setIsLogged}) => {
             localStorage.setItem("token", response.data.token);
             if (response.data.token) {
                 const decode = jwtDecode(response.data.token);
-                console.log("entro al login")
                 if (decode.role === "user") {
                     navigate(`/audioPlayer/${decode.sub}`);
                 }
@@ -43,7 +43,8 @@ const Login = ({setIsLogged}) => {
                     navigate(`/users`);
                 }
             }
-
+            dispatch({type: 'SET_IS_LOGGED', payload: true})
+            localStorage.setItem("localIsLogged", true);
             Swal.fire({
                 icon: "success",
                 title: "Bienvenido"
@@ -118,10 +119,6 @@ const Login = ({setIsLogged}) => {
                     )
             }
 
-            <div className="mt-3 text-center" id="btn-registro">
-                <span>¿No tienes una cuenta registrada?
-                    <Link to="/registro" className="btn link">Regístrate</Link></span>
-            </div>
             <div className="text-center">
                 <Link to="/error" className="btn link mb-4">¿Olvidaste tu contraseña?</Link>
             </div>

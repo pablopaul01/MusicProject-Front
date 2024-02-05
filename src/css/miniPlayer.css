@@ -17,3 +17,12 @@
 .miniWave {
     min-width: none;
 }
+
+.btn.download {
+    background-color: #793347;
+    color: #fff;
+}
+.btn.download:hover {
+    background-color: #580019;
+    color: #fff;
+}

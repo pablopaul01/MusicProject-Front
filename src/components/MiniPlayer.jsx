@@ -5,7 +5,7 @@ import {FaPlay, FaPause, FaBackward, FaForward,FaVolumeUp} from "react-icons/fa"
 import WaveSurfer from 'wavesurfer.js'
 import { GlobalContext } from '../context/GlobalContext'
 import { SET_ISPLAYING } from '../context/types'
-
+import { MdOutlineFileDownload } from "react-icons/md";
 
 
 const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrentTimePlayer, setIsPlayingPlayer, porcentaje, setPorcentaje}) => {
@@ -96,19 +96,18 @@ const downloadAudio = () => {
                 }}></audio>
 
     <section className='container miniPlayer py-2'>
-                <div className="row px-4 d-flex gap-5 gap-md-0 justify-content-around">
-                  <div className="col-1 d-flex gap-5 ">
+                <div className="row px-4 d-flex gap-0 gap-md-1 gap-md-0 justify-content-around">
+                  <div className="col-1 d-flex">
                     <div className='d-flex gap-2 align-items-center'>
                       <span onClick={handlePlay} className='miniPlay'>{state.currentSong?._id === song._id && state.isPlaying ? <FaPause/> : <FaPlay/>}</span>
                     </div>
                   </div>
-                  <div className="col-2 d-flex justify-content-center">
-                  <div className='d-md-flex align-items-center d-none just'>
-                      <p className='mb-0'>{state.currentSong?._id === song._id ? state.currentTime : "00:00"} / {formatTime(song?.duration)}</p>
+                  <div className="col d-md-flex justify-content-center d-none">
+                    <div className='d-md-flex align-items-center  just'>
+                        <p className='mb-0'>{state.currentSong?._id === song._id ? state.currentTime : "00:00"} / {formatTime(song?.duration)}</p>
                     </div>
                   </div>
-                  <div className="col-2 d-flex gap-5 justify-content-center">
-
+                  <div className="col-6 col-md-2 d-flex gap-5 justify-content-center">
                     <div className='d-flex flex-column align-items-center'>
                       <p className='mb-0'>
                         {song?.title}
@@ -118,11 +117,11 @@ const downloadAudio = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="col-5 d-md-flex align-items-center justify-content-center d-none">
+                  <div className="col-2 col-md-5 d-md-flex align-items-center justify-content-center d-none">
                     <div className='miniWave w-100' id={`miniWaveform${song._id}`} ref={containerWave} onClick={e=>{
                       handleClickWave(e)}}></div>
                   </div>
-                  <div className='col-2 d-flex py-2 justify-content-center'><button className='btn btn-primary' onClick={downloadAudio}>Decargar</button></div>
+                  <div className='col-1 d-flex py-2 justify-content-center'><button className='btn download' onClick={downloadAudio}><MdOutlineFileDownload style={{fontSize: "1.5rem"}}/></button></div>
                 </div>
         </section>
     </>
