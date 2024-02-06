@@ -12,7 +12,7 @@
 
 
 .dropDown:hover {
-    background-color: #7F9054;
+    background-color: #7F9054 !important;
     .itemDropdown {
         color: #fff;
     }

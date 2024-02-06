@@ -24,10 +24,14 @@ const UserInterface = () => {
       }, [])
 
       const getUserById = async () => {
-        // const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if (id) {
           try {
-            const response = await axiosInstance.get(`/usuario/${id}`);
+            const response = await axiosInstance.get(`/usuario/${id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
             SetUserData(response.data.user);
           } catch (error) {
             Swal.fire({
@@ -44,13 +48,6 @@ const UserInterface = () => {
       <div className='container-fluid cabecera'>
         <div className='row'>
           <div className='col d-flex justify-content-around'>
-            {/* <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706735330/Medias/LAMPARAS-4_whhkxt.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066384/Medias/LAMPARAS-6_lbeoks.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066286/Medias/LAMPARAS-2_iowodr.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066384/Medias/LAMPARAS-6_lbeoks.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066282/Medias/LAMPARAS-1_xvitz5.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707066384/Medias/LAMPARAS-6_lbeoks.png" alt="" className='lamparas'/>
-            <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706735345/Medias/LAMPARAS-8_sjslie.png" alt="" className='lamparas'/> */}
           </div>
         </div>
       </div>

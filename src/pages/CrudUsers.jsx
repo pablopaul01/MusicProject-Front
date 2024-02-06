@@ -47,8 +47,6 @@ const CrudUsers = () => {
     const handleClickUserSong = (row) => {
       handleShowUsersSongs();
       setIdUserSong(row)
-      console.log("userData",userData)
-   
   }
 
         const handleShowSongs = () => setShowSongs(true);
@@ -159,13 +157,17 @@ const CrudUsers = () => {
 
 
       const disabledUser = async (row) => {
-        // const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
         try {
-            const { data } = await axiosInstance.put(`/desactivar/usuario/${row}`);
+            await axiosInstance.put(`/desactivar/usuario/${row}`,null , {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            });
            
             Swal.fire(
                 'Bien hecho!',
-                `El usuario fue ${data.user.state ? ("activado") : ("desactivado")}!`,
+                `Estado actualizado`,
                 'success'
             )
         } catch (error) {

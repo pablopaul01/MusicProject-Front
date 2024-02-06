@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';
 import Swal from 'sweetalert2';
@@ -5,7 +6,11 @@ import Swal from 'sweetalert2';
 
 const PrivateRoutesUser = () => {
     const isAuth = localStorage.getItem("token");
-    return isAuth ?
+    const decode = jwtDecode(isAuth);
+    console.log("decode",decode)
+
+    
+    return isAuth && decode.state === true ?
         <Outlet />
         :
         <Navigate to="/login">{Swal.fire({

@@ -9,7 +9,7 @@ import { getUsers, getSongs } from '../../../context/GlobalActions';
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import Spinner from "react-bootstrap/Spinner";
-import datos from "../../../helpers/data";
+import "./formEditUser.css"
 
 const FormEditUser = ({ showEdit, setShowEdit, handleClose, idUser }) => {
   const [editInputName, setEditInputName] = useState(true);
@@ -62,10 +62,14 @@ useEffect(() => {
   }, [setValue, userData.role]);
 
   const onSubmit = async (data) => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     try {
       setLoading(true);
-      const response = await axiosInstance.put(`/usuario/${idUser}`, data);
+      const response = await axiosInstance.put(`/usuario/${idUser}`, data,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       handleClose();
       Swal.fire({
         icon: "success",
@@ -99,7 +103,7 @@ useEffect(() => {
           />
                     <button
             className={
-              editInputMail ? "btn btn-outline-light" : "btn btn-danger"
+              editInputMail ? "btn btn-outline-edit" : "btn btn-edit"
             }
             type="button"
             onClick={() => setEditInputMail(!editInputMail)}
@@ -122,7 +126,7 @@ useEffect(() => {
           />
           <button
             className={
-              editInputName ? "btn btn-outline-light" : "btn btn-danger"
+              editInputName ? "btn btn-outline-edit" : "btn btn-edit"
             }
             type="button"
             onClick={() => setEditInputName(!editInputName)}
@@ -146,7 +150,7 @@ useEffect(() => {
           />
           <button
             className={
-              editInputLastName? "btn btn-outline-light" : "btn btn-danger"
+              editInputLastName? "btn btn-outline-edit" : "btn btn-edit"
             }
             type="button"
             onClick={() => setEditInputLastName(!editInputLastName)}
@@ -171,12 +175,12 @@ useEffect(() => {
       ) : (
         <>
           <button
-            className="btn btn-outline-light boton-login mt-3"
+            className="btn btn-save mt-3"
             type="submit"
           >
             Guardar Cambios
           </button>
-          <Button variant="light" className="mt-3 mx-2" onClick={handleClose}>
+          <Button className="mt-3 mx-2 btn-cancel" onClick={handleClose}>
             Cancelar
           </Button>
         </>
