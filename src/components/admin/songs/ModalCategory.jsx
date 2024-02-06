@@ -43,7 +43,7 @@ const ModalCategory = ({showCategory, setShowCategory,song}) => {
     }
   
     const handleSubmit = async (e) => {
-      // const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       e.preventDefault();
       if (Object.values(errors).some(error => error)) {
       return; 
@@ -52,7 +52,11 @@ const ModalCategory = ({showCategory, setShowCategory,song}) => {
         setLoading(true);
         const formData = new FormData();
         formData.append("name", formDatos.name)
-        const resp = await axiosInstance.post(`/category`, formData)
+        const resp = await axiosInstance.post(`/category`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         Swal.fire({
             icon: "success",
             title: "Categoría creada correctamente"

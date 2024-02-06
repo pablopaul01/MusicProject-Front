@@ -68,10 +68,10 @@ useEffect(() => {
           { token ? (
             jwtDecode(token).role === "admin" &&
             (<NavDropdown title="Administrar" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1" className='dropDown'>
+            <NavDropdown.Item className='dropDown'>
                 <Link to="/songs" className='itemDropdown'>Canciones </Link>
             </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2" className='dropDown'>
+            <NavDropdown.Item className='dropDown'>
               <Link to={"users"} className='itemDropdown'>Usuarios</Link> 
             </NavDropdown.Item>
           </NavDropdown>) 

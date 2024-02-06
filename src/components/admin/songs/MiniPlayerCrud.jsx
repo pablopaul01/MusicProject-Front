@@ -104,6 +104,8 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
                 'success'
             )
             dispatch(getSongs())
+            console.log("el state songs", state.songs)
+            console.log("getsongs", dispatch(getSongs()))
         }
     })
     } catch (error) {

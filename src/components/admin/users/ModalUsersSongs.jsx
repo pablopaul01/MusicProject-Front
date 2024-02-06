@@ -33,12 +33,10 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
     });
     let filteredSongs = []
     if (showUsersSongs && idUserSong === userData._id){
-      console.log("entro",userData)
       const userDataAudioListIds = userData?.audioList?.map(audio => audio._id.toString());
 
       // Filtra las canciones en state.songs que no están en userData.audioList
       filteredSongs = state.songs.filter(song => !userDataAudioListIds?.includes(song._id.toString()));
-      console.log("filteredSongs",filteredSongs)
     }
 
 
@@ -212,22 +210,22 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
 			        columns={columns}
 			        data={userData.audioList}
               pagination
-              theme='dark'
+              // theme='dark'
               highlightOnHover
 		          pointerOnHover
               paginationComponentOptions={paginationComponentOptions}
-
+              noDataComponent="No hay canciones seleccionadas para este usuario aún"
 		        />
           <p className='mt-5'>Agregar Caciones</p>
           <DataTable
 			        columns={columnSongs}
 			        data={filteredSongs}
               pagination
-              theme='dark'
+              // theme='dark'
               highlightOnHover
 		          pointerOnHover
               paginationComponentOptions={paginationComponentOptions}
-
+              noDataComponent="No hay canciones disponibles para agregar"
 		        />
         </Modal.Body>
         <Modal.Footer>
