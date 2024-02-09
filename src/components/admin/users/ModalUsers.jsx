@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import "./modalUser.css"
 
 import Swal from 'sweetalert2'
 
@@ -60,37 +61,39 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
   return (  <>
 
 
-      <Modal show={showSongs} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Crear Usuario</Modal.Title>
+      <Modal show={showSongs} onHide={handleClose} className='back'>
+        <Modal.Header closeButton className='glass'>
+          <Modal.Title className='titleUser'>Crear Usuario</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body  className='glass'>
         
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-2 pt-2">
-              <label className="form-label">Nombre Completo</label>
-              <input
-                placeholder="Juan Perez"
-                type="text"
-                className="form-control"
-                name="name"
-                {...register("name")}
-                maxLength="40"
-              />
+            <div className='d-flex'>
+              <div className="mb-2 pt-2 w-100 me-1">
+                <label className="form-label">Nombre Completo</label>
+                <input
+                  placeholder="Juan Perez"
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  {...register("name")}
+                  maxLength="40"
+                />
+              </div>
+              <p className="text-danger my-1">{errors.name?.message}</p>
+              <div className="mb-2 pt-2 w-100 ms-1">
+                <label className="form-label">Apellido</label>
+                <input
+                  placeholder="Juan Perez"
+                  type="text"
+                  className="form-control"
+                  name="lastname"
+                  {...register("lastname")}
+                  maxLength="40"
+                />
+              </div>
+              <p className="text-danger my-1">{errors.lastname?.message}</p>
             </div>
-            <p className="text-danger my-1">{errors.name?.message}</p>
-            <div className="mb-2 pt-2">
-              <label className="form-label">Apellido</label>
-              <input
-                placeholder="Juan Perez"
-                type="text"
-                className="form-control"
-                name="lastname"
-                {...register("lastname")}
-                maxLength="40"
-              />
-            </div>
-            <p className="text-danger my-1">{errors.lastname?.message}</p>
             <div className="mb-2 pt-2">
               <label className="form-label">Correo electrónico</label>
               <input
@@ -179,7 +182,7 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
             )}
         </form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className='glass'>
           <Button variant="secondary" onClick={handleClose}>
             Salir sin guardar
           </Button>

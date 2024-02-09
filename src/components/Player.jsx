@@ -70,7 +70,7 @@ const skipSong = ( forwards = true) => {
       // width: 500,
       height: 30,
       waveColor: '#C0C0C0',
-      progressColor: '#96989A',
+      progressColor: '#7F9054',
       fillParent: true,
       // minPxPerSec: 10,
       media: audioEl.current,
