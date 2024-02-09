@@ -32,7 +32,7 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
       container: `#miniWaveform${song._id}`,
       height: 20,
       waveColor: '#C0C0C0',
-      progressColor: '#96989A',
+      progressColor: '#7F9054',
       fillParent: true,
       media: audioEl.current,
        // <- this is the important part
@@ -156,7 +156,7 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
                       handleClickWave(e)}}></div>
                   </div>
                   <div className='col-2 d-flex py-2 justify-content-center gap-3'>
-                    <button className='btn btn-warning d-flex justify-content-center align-items-center' onClick={handleShowSongs}><FaEdit /></button>
+                    <button className='btn btn-outline-light d-flex justify-content-center align-items-center' onClick={handleShowSongs}><FaEdit /></button>
                     <button className='btn btn-danger d-flex justify-content-center align-items-center' onClick={deleteSong}><FaTrashAlt /></button>
                     <ModalEditSongs showSongs={showSongs} setShowSongs={setShowSongs} song={song}/>
                 </div>

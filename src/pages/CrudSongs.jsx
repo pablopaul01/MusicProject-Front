@@ -47,6 +47,12 @@ const CrudSongs = () => {
 
   return (
     <div className='main'>
+      <div className='container-fluid cabecera'>
+        <div className='row'>
+          <div className='col d-flex justify-content-around'>
+          </div>
+        </div>
+      </div>
         <section className='container mb-5 pt-5'> 
             <div className="row">
                 <div className="col-4 d-flex gap-3">

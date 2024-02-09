@@ -51,10 +51,11 @@ const Login = ({setIsLogged}) => {
             })
             setIsLogged(true)
         } catch (error) {
+            console.log(error.response);
             Swal.fire({
                 icon: "error",
-                title: `Ocurrió un problema! Error${error.response}`,
-                text: `${error.response}`
+                title: `Ocurrió un problema!`,
+                text: `${error.response.data.mensaje}`
             })
         } finally {
 

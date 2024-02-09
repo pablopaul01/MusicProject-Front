@@ -91,16 +91,15 @@ const ModalEditSongs = ({showSongs, setShowSongs,song}) => {
         document.getElementById("formSong").reset()
       }
     }
-  // console.log("song", song)
 
   return (  <>
 
 
-      <Modal show={showSongs} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar canción</Modal.Title>
+      <Modal show={showSongs} onHide={handleClose} className='back'>
+        <Modal.Header closeButton className='glass'>
+          <Modal.Title className='titleUser'>Editar canción</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='glass'>
         <form className="form-container" onSubmit={handleSubmit} id='formSong' encType='multipart/form-data'>
         <div className="mb-2 pt-2">
           <label className="form-label">Titutlo del audio</label>
@@ -161,15 +160,15 @@ const ModalEditSongs = ({showSongs, setShowSongs,song}) => {
             :
             (
               <div className="d-grid mt-5 mb-4">
-                <button className="btn btn-danger" type="submit" >Guardar Cambios</button>
+                <button className="btn btn-save" type="submit" >Guardar Cambios</button>
               </div>
             )
         }
       </form >
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+        <Modal.Footer className='glass'>
+          <Button variant="secondary" onClick={handleClose} className='btn-cancel'>
+            Salir sin guardar
           </Button>
         </Modal.Footer>
       </Modal>

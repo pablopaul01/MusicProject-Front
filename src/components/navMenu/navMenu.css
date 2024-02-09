@@ -1,9 +1,11 @@
 .navMenu {
-    background-color: #7F9054;
-    color: #fff;
+    background-color: #101010;
+    color: #7F9054;
 }
 
-
+#basic-nav-dropdown {
+    color: #7F9054;
+}
 
 .itemDropdown {
     color: #7F9054;
@@ -19,5 +21,5 @@
 }
 
 .itemMenu {
-    color: #fff !important
+    color: #7F9054 !important
 }

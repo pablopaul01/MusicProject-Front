@@ -5,15 +5,15 @@ import FormEditUser from './FormEditUser';
 const ModalEditUser = ({ showEdit, handleClose, setShowEdit, idUser }) => {
 
     return (
-        <Modal show={showEdit} onHide={handleClose} className='modal-container'>
-            <div className='header-container'>
+        <Modal show={showEdit} onHide={handleClose} className='back'>
+            <div className='header-container glass'>
                 <div className="modal-header mx-5 border border-top-0 border-end-0 border-start-0 py-0">
                     <div className='my-5 '>
-                        <h4 className=" titulo-registro ms-4">Editar Usuario</h4>
+                        <h4 className=" titulo-registro ms-4 titleUser">Editar Usuario</h4>
                     </div>
                 </div>
             </div>
-            <Modal.Body className='p-5'>
+            <Modal.Body className='p-5 glass'>
                 <FormEditUser show={showEdit} setShow={setShowEdit} handleClose={handleClose} idUser={idUser} />
             </Modal.Body>
         </Modal>

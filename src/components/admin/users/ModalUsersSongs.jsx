@@ -200,17 +200,17 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
   return (  <>
 
 
-      <Modal size='lg' show={showUsersSongs} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Canciones del usuario</Modal.Title>
+      <Modal size='lg' show={showUsersSongs} onHide={handleClose} className='back'>
+        <Modal.Header closeButton className='glass'>
+          <Modal.Title className='titleUser'>Canciones del usuario</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='glass'>
           <p>Lista de canciones seleccionadas</p>
           <DataTable
 			        columns={columns}
 			        data={userData.audioList}
               pagination
-              // theme='dark'
+              theme='dark'
               highlightOnHover
 		          pointerOnHover
               paginationComponentOptions={paginationComponentOptions}
@@ -221,15 +221,15 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
 			        columns={columnSongs}
 			        data={filteredSongs}
               pagination
-              // theme='dark'
+              theme='dark'
               highlightOnHover
 		          pointerOnHover
               paginationComponentOptions={paginationComponentOptions}
               noDataComponent="No hay canciones disponibles para agregar"
 		        />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+        <Modal.Footer className='glass'>
+          <Button variant="secondary" onClick={handleClose} className='btn-cancel'>
             Salir
           </Button>
         </Modal.Footer>

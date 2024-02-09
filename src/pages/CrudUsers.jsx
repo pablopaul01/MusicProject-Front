@@ -96,11 +96,11 @@ const CrudUsers = () => {
             name: "Acciones",
             selector: row => {
                 return (
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" , minWidth: "150px"}}>
-                        <button className="btn btn-warning btn-sm d-flex align-items-center " title="Editar"  onClick={() => { handleClickEdit(row._id) }}><FaRegEdit className='t-1'/></button>
-                        <button className="btn btn-dark btn-sm d-flex align-items-center" title="Suspender/Activar" onClick={() => { disabledUser(row._id) }}><ImBlocked id='t-1'/></button>
+                    <div style={{ display: "flex", gap: "5px", justifyContent: "center" , minWidth: "150px"}}>
+                        <button className="btn btn-outline-light btn-sm d-flex align-items-center " title="Editar"  onClick={() => { handleClickEdit(row._id) }}><FaRegEdit className='t-1'/></button>
+                        <button className="btn btn-outline-light btn-sm d-flex align-items-center" title="Asignar Audios" onClick={() => { handleClickUserSong(row._id)}} ><MdAudiotrack  className='t-1'/></button>
+                        <button className="btn btn-danger btn-sm d-flex align-items-center" title="Suspender/Activar" onClick={() => { disabledUser(row._id) }}><ImBlocked id='t-1'/></button>
                         <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar"  onClick={() => { deleteUser(row._id) }}><FaTrashAlt className='t-1'/></button>
-                        <button className="btn btn-light btn-sm d-flex align-items-center" title="Asignar Audios" onClick={() => { handleClickUserSong(row._id)}} ><MdAudiotrack  className='t-1'/></button>
                     </div>
                 )
             },
@@ -204,6 +204,12 @@ const CrudUsers = () => {
 
   return (
     <div className='main'>
+      <div className='container-fluid cabecera'>
+        <div className='row'>
+          <div className='col d-flex justify-content-around'>
+          </div>
+        </div>
+      </div>
         <section className='container mb-5 pt-5'> 
             <div className="row">
                 <div className="col-4 d-flex gap-3">

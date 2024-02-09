@@ -28,7 +28,7 @@ const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrent
       container: `#miniWaveform${song._id}`,
       height: 20,
       waveColor: '#C0C0C0',
-      progressColor: '#96989A',
+      progressColor: '#7F9054',
       fillParent: true,
       media: audioEl.current,
        // <- this is the important part
