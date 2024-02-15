@@ -11,6 +11,7 @@ import CrudUsers from './pages/CrudUsers'
 import NavMenu from './components/navMenu/NavMenu'
 import ForgotPass from './pages/ForgotPass'
 import ResetPass from './pages/ResetPass'
+import CrudCategory from './pages/CrudCategory'
 
 
 
@@ -36,6 +37,7 @@ function App() {
       <Route element={<PrivateRoutesAdmin />}>
         <Route path='/songs' element={<CrudSongs />} />
         <Route path='/users' element={<CrudUsers />} />
+        <Route path='/categories' element={<CrudCategory />} />
         </Route>
       </Routes>
     </>
