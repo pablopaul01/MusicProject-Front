@@ -11,14 +11,13 @@
 
 .titulo-login {  
     font-family: "Mosk";
-    color: rgb(191, 22, 22);
+    color: white;
     font-size: 2.5rem;
 }
 
 .login {
-    /* background-image: linear-gradient(rgba(5, 7, 12, .75), rgba(5, 7, 12, .75)),
-        url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707952303/media/2_iz8ali.jpg"); */
-    background-image: url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707952332/media/1-S_ukyccj.png");
+    background-image: linear-gradient(rgba(5, 7, 12, .75), rgba(5, 7, 12, .75)),
+        url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707952303/media/2_iz8ali.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

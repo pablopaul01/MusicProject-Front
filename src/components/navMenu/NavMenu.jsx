@@ -55,7 +55,7 @@ useEffect(() => {
   return (
     <Navbar expand="lg" className="navMenu d-flex justify-content-between ps-5 pe-5">
 
-      <Navbar.Brand href="#home"><img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1706725888/Medias/logo-h.png" alt="logo" style={{width:"7rem"}}/></Navbar.Brand>
+      <Navbar.Brand href="#home"><img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707952332/media/1-S_ukyccj.png" alt="logo" style={{width:"7rem"}}/></Navbar.Brand>
       <div>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
