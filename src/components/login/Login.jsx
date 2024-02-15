@@ -121,7 +121,7 @@ const Login = ({setIsLogged}) => {
             }
 
             <div className="text-center">
-                <Link to="/error" className="btn link mb-4">¿Olvidaste tu contraseña?</Link>
+                <Link to="/forgot-pass" className="btn link mb-4">¿Olvidaste tu contraseña?</Link>
             </div>
         </form>
 

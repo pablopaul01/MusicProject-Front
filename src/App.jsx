@@ -9,6 +9,8 @@ import LoginPage from './pages/LoginPage'
 import CrudSongs from './pages/CrudSongs'
 import CrudUsers from './pages/CrudUsers'
 import NavMenu from './components/navMenu/NavMenu'
+import ForgotPass from './pages/ForgotPass'
+import ResetPass from './pages/ResetPass'
 
 
 
@@ -25,6 +27,8 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Home/>} /> */}
         <Route path='/' element={<LoginPage setIsLogged={setIsLogged}/>} />
+        <Route path="/forgot-pass" element={<ForgotPass />} />
+        <Route path="/reset_password/:id/:token" element={<ResetPass />}></Route>
         
       <Route element={<PrivateRoutesUser />}>
         <Route path="/audioPlayer/:id" element={<UserInterface />} />
