@@ -1,0 +1,20 @@
+.footer {
+    background-color: #101010;
+    color: #7F9054;
+    min-height: 95px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #7F9054;
+}
+
+.icons-footer {
+    font-size: 2rem;
+}
+
+.autor {
+    text-decoration: none;
+    color: #96989A;
+    font-size: 13px;
+}

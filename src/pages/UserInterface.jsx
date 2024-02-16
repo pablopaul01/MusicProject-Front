@@ -53,9 +53,7 @@ const UserInterface = () => {
       </div>
       <div className='container-fluid'>
         <div className='pt-5 text-center'>
-              <h4>
-                Canciones disponibles
-                </h4>
+          <img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707952332/media/1-S_ukyccj.png" alt="" style={{width:"13rem"}}/>
         </div>
       </div>
         <section className='pt-5 '>

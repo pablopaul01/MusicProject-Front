@@ -8,19 +8,16 @@ import { getCategories, getSongs } from '../../../context/GlobalActions';
 import { axiosInstance } from '../../../config/axiosInstance';
 import Swal from 'sweetalert2'
 
-const ModalEditCategory = ({showCategory, setShowCategory,song}) => {
+const ModalEditCategory = ({showEdit, setShowEdit,idUser}) => {
 
-  const [audioFile, setAudioFile] = useState([]);
   const [errors, setErrors] = useState({});
   const [formDatos, setFormDatos] = useState({
-    title: "",
-    artist: "",
-    category: "",
+    name: "",
   })
   const [loading, setLoading] = useState(false);
   const {state, dispatch} = useContext(GlobalContext)
   
-  const handleClose = () => setShowCategory(false);
+  const handleClose = () => setShowEdit(false);
 
   
     const validateCategoryName = (name) => {
@@ -52,14 +49,15 @@ const ModalEditCategory = ({showCategory, setShowCategory,song}) => {
         setLoading(true);
         const formData = new FormData();
         formData.append("name", formDatos.name)
-        const resp = await axiosInstance.post(`/category`, formData, {
+        console.log("formData", formDatos)
+        const resp = await axiosInstance.put(`/category/${idUser}`, formDatos, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         })
         Swal.fire({
             icon: "success",
-            title: "Categoría creada correctamente"
+            title: "Categoría actualizada correctamente"
           });
         //   reset()
         // await updateSongs();
@@ -71,8 +69,8 @@ const ModalEditCategory = ({showCategory, setShowCategory,song}) => {
         console.log("error", error)
         Swal.fire({
           icon: "error",
-          title: `Ocurrió un problema! Error${error.response}`,
-          text: `${error.response}`
+          title: `Ocurrió un problema! Error${error.response.data.status}`,
+          text: `${error.response.data.mensaje}`
         })
       }finally {
         setLoading(false); 
@@ -80,66 +78,51 @@ const ModalEditCategory = ({showCategory, setShowCategory,song}) => {
         document.getElementById("formCategory").reset()
       }
     }
-  // console.log("song", song)
 
   return (  <>
 
 
-      <Modal show={showCategory} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Crear Categoría</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form className="form-container" onSubmit={handleSubmit} id='formCategory' encType='multipart/form-data'>
-        <div className="mb-2 pt-2">
-          <label className="form-label">Nombre de la Categoría</label>
-          <input
-            type="text"
-            className={`form-control `}
-            name="name"
-            onChange={handleChangeDatos}
-            maxLength={40}
-            // value={formDatos.title}
-            placeholder={"Ingrese el nombre de la categoría"}
-          />
-           {errors.title && <div className="invalid-feedback">Ingresa un nombre válido.</div>}
+      <Modal show={showEdit} onHide={handleClose} className='back'>
+        <div className="glass">
+          <Modal.Header closeButton>
+            <Modal.Title className='title-modal'>Modificar Categoría</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <form className="form-container" onSubmit={handleSubmit} id='formCategory' encType='multipart/form-data'>
+          <div className="mb-2 pt-2">
+            <label className="form-label">Nombre de la Categoría</label>
+            <input
+              type="text"
+              className={`form-control `}
+              name="name"
+              onChange={handleChangeDatos}
+              maxLength={40}
+              placeholder={"Ingrese el nuevo nombre"}
+            />
+            {errors.title && <div className="invalid-feedback">Ingresa un nombre válido.</div>}
+          </div>
+          {
+            loading ?
+              (
+                <div className="d-grid mt-3 justify-content-center mt-4 mb-3">
+                  <Spinner />
+                </div>
+              )
+              :
+              (
+                <div className="d-grid mt-5 mb-4">
+                  <button className="btn btn-danger" type="submit" >Guardar Cambios</button>
+                </div>
+              )
+          }
+        </form >
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Salir sin guardar
+            </Button>
+          </Modal.Footer>
         </div>
-
-        
-
-        
-
-        {/* <div className="mb-2 pt-2">
-          <label className="form-label">Cargar archivo</label>
-          <input
-            type="file"
-            className="form-control"
-            name="imagenes"
-            onChange={handleAudioChange}
-          />
-        </div> */}
-        
-        {
-          loading ?
-            (
-              <div className="d-grid mt-3 justify-content-center mt-4 mb-3">
-                <Spinner />
-              </div>
-            )
-            :
-            (
-              <div className="d-grid mt-5 mb-4">
-                <button className="btn btn-danger" type="submit" >Guardar Cambios</button>
-              </div>
-            )
-        }
-      </form >
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Salir sin guardar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
       )

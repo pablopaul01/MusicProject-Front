@@ -64,11 +64,7 @@ const ModalSongs = ({showSongs, setShowSongs}) => {
             icon: "success",
             title: "Canción agregada correctamente"
           });
-        //   reset()
-        // await updateSongs();
           handleClose()
-                  // getCategories()
-        // handleCloseC()
         setLoading(false);
       } catch (error) {
         console.log("error", error)
@@ -88,80 +84,79 @@ const ModalSongs = ({showSongs, setShowSongs}) => {
   return (  <>
 
 
-      <Modal show={showSongs} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Agregar canción</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form className="form-container" onSubmit={handleSubmit} id='formSong'>
-        <div className="mb-2 pt-2">
-          <label className="form-label">Titutlo del audio</label>
-          <input
-            type="text"
-            className={`form-control ${errors.title ? 'is-invalid' : ''}`}
-            name="title"
-            onChange={handleChangeDatos}
-            maxLength={40}
-            required
-          />
-           {errors.title && <div className="invalid-feedback">Ingresa un nombre válido.</div>}
-        </div>
+      <Modal show={showSongs} onHide={handleClose} className='back'>
+        <div className="glass">
+          <Modal.Header closeButton>
+            <Modal.Title className='title-modal'>Agregar canción</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <form className="form-container" onSubmit={handleSubmit} id='formSong'>
+          <div className="mb-2 pt-2">
+            <label className="form-label">Titutlo del audio</label>
+            <input
+              type="text"
+              className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+              name="title"
+              onChange={handleChangeDatos}
+              maxLength={40}
+              required
+            />
+            {errors.title && <div className="invalid-feedback">Ingresa un nombre válido.</div>}
+          </div>
 
-        <div className="mb-2 pt-2">
-          <label className="form-label">Artista</label>
-          <input
-            type="text"
-            className="form-control"
-            name="artist"
-            onChange={handleChangeDatos}
-            required
-          />
-        </div>
+          <div className="mb-2 pt-2">
+            <label className="form-label">Artista</label>
+            <input
+              type="text"
+              className="form-control"
+              name="artist"
+              onChange={handleChangeDatos}
+              required
+            />
+          </div>
 
-        <div className="mb-2 pt-2">
-          <label className="form-label">Categoria del audio</label>
-          <select name="category" id="" onChange={handleChangeDatos}
-            required  className="form-control">
-              <option value=""></option>
-            {state.categories && state.categories.map(category => (
-              <option key={category._id} value={category._id}>{category.name}</option>
-            ))}
-          </select>
+          <div className="mb-2 pt-2">
+            <label className="form-label">Categoria del audio</label>
+            <select name="category" id="" onChange={handleChangeDatos}
+              required  className="form-control">
+                <option value=""></option>
+              {state.categories && state.categories.map(category => (
+                <option key={category._id} value={category._id}>{category.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-2 pt-2">
+            <label className="form-label">Cargar archivo</label>
+            <input
+              type="file"
+              className="form-control"
+              name="imagenes"
+              onChange={handleAudioChange}
+            />
+          </div>
+          
+          {
+            loading ?
+              (
+                <div className="d-grid mt-3 justify-content-center mt-4 mb-3">
+                  <Spinner />
+                </div>
+              )
+              :
+              (
+                <div className="d-grid mt-5 mb-4">
+                  <button className="btn btn-danger" type="submit" >Cargar Audio</button>
+                </div>
+              )
+          }
+        </form >
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
         </div>
-
-        
-
-        <div className="mb-2 pt-2">
-          <label className="form-label">Cargar archivo</label>
-          <input
-            type="file"
-            className="form-control"
-            name="imagenes"
-            onChange={handleAudioChange}
-          />
-        </div>
-        
-        {
-          loading ?
-            (
-              <div className="d-grid mt-3 justify-content-center mt-4 mb-3">
-                <Spinner />
-              </div>
-            )
-            :
-            (
-              <div className="d-grid mt-5 mb-4">
-                <button className="btn btn-danger" type="submit" >Cargar Audio</button>
-              </div>
-            )
-        }
-      </form >
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
       )

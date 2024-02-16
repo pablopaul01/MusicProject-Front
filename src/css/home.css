@@ -5,32 +5,42 @@
     src: url("../../assets/fonts/Mosk Medium 500.ttf");
 }
 
-.titulo {
-    padding-top: -20px;
+
+
+.main-home {
+    min-height: 85vh;
+    background-color: black;
+} 
+
+.container-img-home {
+    overflow: hidden;
+    height: 85vh;
 }
 
-.titulo-login {  
-    font-family: "Mosk";
-    color: white;
-    font-size: 2.5rem;
-}
-
-.login {
-    background-image: linear-gradient(rgba(5, 7, 12, .75), rgba(5, 7, 12, .75)),
-        url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707952303/media/2_iz8ali.jpg");
+.img {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://res.cloudinary.com/dtkrptodh/image/upload/v1708040001/media/6_hhucud.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    min-height: 85vh;
-} 
-
-.div-login {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);   
-    margin-top: 70px !important;
+    box-shadow: 118px -4px 56px -28px rgba(0,0,0,1) inset;
+    -webkit-box-shadow: 118px -4px 56px -28px rgba(0,0,0,1) inset;
+    -moz-box-shadow: 118px -4px 56px -28px rgba(0,0,0,1) inset;
 }
-.row-login {
-    padding-bottom: 60px;
+
+.items-home {
+    background-color: #40490B;
+    color: #fff;
+    border-radius: 50px;
+    width: 60%;
+}
+
+.items-home-sm {
+    background-color: #40490B;
+    color: #fff;
+    border-radius: 50px;
+    width: 100%;
 }
 
 /* .btn-outline-light {
