@@ -85,61 +85,49 @@ const ModalCategory = ({showCategory, setShowCategory,song}) => {
   return (  <>
 
 
-      <Modal show={showCategory} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Crear Categoría</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form className="form-container" onSubmit={handleSubmit} id='formCategory' encType='multipart/form-data'>
-        <div className="mb-2 pt-2">
-          <label className="form-label">Nombre de la Categoría</label>
-          <input
-            type="text"
-            className={`form-control `}
-            name="name"
-            onChange={handleChangeDatos}
-            maxLength={40}
-            // value={formDatos.title}
-            placeholder={"Ingrese el nombre de la categoría"}
-          />
-           {errors.title && <div className="invalid-feedback">Ingresa un nombre válido.</div>}
+      <Modal show={showCategory} onHide={handleClose} className='back'>
+        <div className='glass'>
+          <Modal.Header closeButton>
+            <Modal.Title className='title-modal'>Crear Categoría</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <form className="form-container" onSubmit={handleSubmit} id='formCategory' encType='multipart/form-data'>
+          <div className="mb-2 pt-2">
+            <label className="form-label">Nombre de la Categoría</label>
+            <input
+              type="text"
+              className={`form-control `}
+              name="name"
+              onChange={handleChangeDatos}
+              maxLength={40}
+              // value={formDatos.title}
+              placeholder={"Ingrese el nombre de la categoría"}
+            />
+            {errors.title && <div className="invalid-feedback">Ingresa un nombre válido.</div>}
+          </div>
+          
+          {
+            loading ?
+              (
+                <div className="d-grid mt-3 justify-content-center mt-4 mb-3">
+                  <Spinner />
+                </div>
+              )
+              :
+              (
+                <div className="d-grid mt-5 mb-4">
+                  <button className="btn btn-danger" type="submit" >Guardar Cambios</button>
+                </div>
+              )
+          }
+        </form >
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Salir sin guardar
+            </Button>
+          </Modal.Footer>
         </div>
-
-        
-
-        
-
-        {/* <div className="mb-2 pt-2">
-          <label className="form-label">Cargar archivo</label>
-          <input
-            type="file"
-            className="form-control"
-            name="imagenes"
-            onChange={handleAudioChange}
-          />
-        </div> */}
-        
-        {
-          loading ?
-            (
-              <div className="d-grid mt-3 justify-content-center mt-4 mb-3">
-                <Spinner />
-              </div>
-            )
-            :
-            (
-              <div className="d-grid mt-5 mb-4">
-                <button className="btn btn-danger" type="submit" >Guardar Cambios</button>
-              </div>
-            )
-        }
-      </form >
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Salir sin guardar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
       )

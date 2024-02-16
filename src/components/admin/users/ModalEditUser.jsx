@@ -9,7 +9,7 @@ const ModalEditUser = ({ showEdit, handleClose, setShowEdit, idUser }) => {
             <div className='header-container glass'>
                 <div className="modal-header mx-5 border border-top-0 border-end-0 border-start-0 py-0">
                     <div className='my-5 '>
-                        <h4 className=" titulo-registro ms-4 titleUser">Editar Usuario</h4>
+                        <h4 className=" titulo-registro ms-4 title-modal">Editar Usuario</h4>
                     </div>
                 </div>
             </div>

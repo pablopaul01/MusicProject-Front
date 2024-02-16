@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import UserInterface from './pages/UserInterface'
 import AudioPlayer from './pages/AudioPlayer'
@@ -12,6 +12,7 @@ import NavMenu from './components/navMenu/NavMenu'
 import ForgotPass from './pages/ForgotPass'
 import ResetPass from './pages/ResetPass'
 import CrudCategory from './pages/CrudCategory'
+import Footer from './pages/Footer'
 
 
 
@@ -20,14 +21,16 @@ function App() {
     return !!localStorage.getItem('token') || false
   })
 
+  const location = useLocation();
+  const hideFooter = location.pathname.startsWith('/audioPlayer/');
   const isAuthenticated = !!localStorage.getItem('token');
 
   return (
     <>
       <NavMenu isLogged={isLogged} setIsLogged={setIsLogged} />
       <Routes>
-        {/* <Route path="/" element={<Home/>} /> */}
-        <Route path='/' element={<LoginPage setIsLogged={setIsLogged}/>} />
+        <Route path="/" element={<Home/>} />
+        <Route path='/login' element={<LoginPage setIsLogged={setIsLogged}/>} />
         <Route path="/forgot-pass" element={<ForgotPass />} />
         <Route path="/reset_password/:id/:token" element={<ResetPass />}></Route>
         
@@ -40,6 +43,7 @@ function App() {
         <Route path='/categories' element={<CrudCategory />} />
         </Route>
       </Routes>
+      {!hideFooter && <Footer />}
     </>
   )
 }

@@ -201,38 +201,40 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
 
 
       <Modal size='lg' show={showUsersSongs} onHide={handleClose} className='back'>
-        <Modal.Header closeButton className='glass'>
-          <Modal.Title className='titleUser'>Canciones del usuario</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className='glass'>
-          <p>Lista de canciones seleccionadas</p>
-          <DataTable
-			        columns={columns}
-			        data={userData.audioList}
-              pagination
-              theme='dark'
-              highlightOnHover
-		          pointerOnHover
-              paginationComponentOptions={paginationComponentOptions}
-              noDataComponent="No hay canciones seleccionadas para este usuario aún"
-		        />
-          <p className='mt-5'>Agregar Caciones</p>
-          <DataTable
-			        columns={columnSongs}
-			        data={filteredSongs}
-              pagination
-              theme='dark'
-              highlightOnHover
-		          pointerOnHover
-              paginationComponentOptions={paginationComponentOptions}
-              noDataComponent="No hay canciones disponibles para agregar"
-		        />
-        </Modal.Body>
-        <Modal.Footer className='glass'>
-          <Button variant="secondary" onClick={handleClose} className='btn-cancel'>
-            Salir
-          </Button>
-        </Modal.Footer>
+        <div className='glass'>
+          <Modal.Header>
+            <Modal.Title className='title-modal'>Canciones del usuario</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Lista de canciones seleccionadas</p>
+            <DataTable
+                columns={columns}
+                data={userData.audioList}
+                pagination
+                theme='dark'
+                highlightOnHover
+                pointerOnHover
+                paginationComponentOptions={paginationComponentOptions}
+                noDataComponent="No hay canciones seleccionadas para este usuario aún"
+              />
+            <p className='mt-5'>Agregar Caciones</p>
+            <DataTable
+                columns={columnSongs}
+                data={filteredSongs}
+                pagination
+                theme='dark'
+                highlightOnHover
+                pointerOnHover
+                paginationComponentOptions={paginationComponentOptions}
+                noDataComponent="No hay canciones disponibles para agregar"
+              />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose} className='btn-cancel'>
+              Salir
+            </Button>
+          </Modal.Footer>
+        </div>
       </Modal>
     </>
       )

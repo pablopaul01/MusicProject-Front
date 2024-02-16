@@ -55,7 +55,9 @@ useEffect(() => {
   return (
     <Navbar expand="lg" className="navMenu d-flex justify-content-between ps-5 pe-5">
 
-      <Navbar.Brand href="#home"><img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707952332/media/1-S_ukyccj.png" alt="logo" style={{width:"7rem"}}/></Navbar.Brand>
+      <Navbar.Brand >
+        <Link to={"/"}><img src="https://res.cloudinary.com/dtkrptodh/image/upload/v1707952332/media/1-S_ukyccj.png" alt="logo" style={{width:"7rem"}}/></Link>
+      </Navbar.Brand>
       <div>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -86,7 +88,7 @@ useEffect(() => {
             ) 
             : 
             (
-              <Nav.Link href="#link" className='itemMenu'>Iniciar sesión</Nav.Link>
+              <Nav.Link className='itemMenu'><Link to={"/login"} className='itemMenu'>Iniciar sesión</Link></Nav.Link>
             )
           }
           

@@ -8,8 +8,8 @@ import { ImBlocked } from "react-icons/im";
 import Swal from 'sweetalert2'
 import "../css/crudUser.css"
 import { axiosInstance } from '../config/axiosInstance'
-import ModalEditUser from '../components/admin/users/ModalEditUser'
 import ModalUsersSongs from '../components/admin/users/ModalUsersSongs';
+import ModalEditCategory from '../components/admin/songs/ModalEditCategory';
 
 
 const CrudCategory = () => {
@@ -68,7 +68,7 @@ const CrudCategory = () => {
                 return (
                     <div style={{ display: "flex", gap: "5px", justifyContent: "center" , minWidth: "150px"}}>
                         <button className="btn btn-outline-light btn-sm d-flex align-items-center " title="Editar"  onClick={() => { handleClickEdit(row._id) }}><FaRegEdit className='t-1'/></button>
-                        <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar"  onClick={() => { deleteUser(row._id) }}><FaTrashAlt className='t-1'/></button>
+                        <button className="btn btn-danger btn-sm d-flex align-items-center" title="Eliminar"  onClick={() => { deleteCategory(row._id) }}><FaTrashAlt className='t-1'/></button>
                     </div>
                 )
             },
@@ -86,12 +86,12 @@ const CrudCategory = () => {
         const filteredCategories = state.categories
         .filter((category) => searchTerm === '' || category.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-        const deleteUser = async (row) => {
+        const deleteCategory = async (row) => {
           const token = localStorage.getItem("token");
           // const decoded = jwtDecode(token);   
           try {
               Swal.fire({
-                  title: 'Esta seguro de eliminar el usuario?',
+                  title: 'Esta seguro de eliminar la categoría?',
                   text: "No podrás revertir los cambios!",
                   icon: 'warning',
                   showCancelButton: true,
@@ -100,7 +100,7 @@ const CrudCategory = () => {
                   confirmButtonText: 'Si, eliminar!'
               }).then(async (result) => {
                   if (result.isConfirmed) {
-                      await axiosInstance.delete(`/usuario/${row}`, {
+                      await axiosInstance.delete(`/category/${row}`, {
                         headers: {
                           Authorization: `Bearer ${token}`,
                         }
@@ -110,7 +110,7 @@ const CrudCategory = () => {
                           'El usuario fue eliminado',
                           'success'
                       )
-                     dispatch( getUsers());
+                     dispatch( getCategories());
                   }
               })
           } catch (error) {
@@ -157,7 +157,7 @@ const CrudCategory = () => {
                 <div className="col-4 d-flex gap-3">
                     <button className='btn btn-outline-light'  onClick={handleShowCategory}>Crear categoria</button>  
                 </div>
-                <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory}/>
+                <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory} idUser={idUser} />
                 <div className="col-4 d-flex align-items-center">
 
                 </div>
@@ -185,8 +185,7 @@ const CrudCategory = () => {
                   paginationComponentOptions={paginationComponentOptions}
 
                 />
-                <ModalEditUser showEdit={showEdit} handleClose={handleClose} setShowEdit={setShowEdit} idUser={idUser}/>
-                <ModalUsersSongs showUsersSongs={showUsersSongs} setShowUsersSongs={setShowUsersSongs} idUserSong={idUserSong} userData={userData} SetUserData={SetUserData} getUserById={getUserById}/>
+                <ModalEditCategory showEdit={showEdit} handleClose={handleClose} setShowEdit={setShowEdit} idUser={idUser}/>
                 </>
                 )
               }

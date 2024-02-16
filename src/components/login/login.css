@@ -15,29 +15,12 @@
     font-size: 2.5rem;
 }
 
-.login {
-    /* background-image: linear-gradient(rgba(5, 7, 12, .75), rgba(5, 7, 12, .75)),
-        url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707952303/media/2_iz8ali.jpg"); */
-    background-image: url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707952332/media/1-S_ukyccj.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-} 
 
 .div-login {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);   
     margin-top: 70px !important;
 }
-.row-login {
-    padding-bottom: 60px;
-}
-
-/* .btn-outline-light {
-    background-color: #95724c !important;
-    color: white;
-} */
 
 .btn-outline-light:hover {
     background-color: #7F9054  !important;
