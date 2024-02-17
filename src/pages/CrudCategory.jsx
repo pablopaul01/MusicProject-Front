@@ -166,7 +166,7 @@ const CrudCategory = () => {
                 </div>
             </div>
         </section>
-        <section className='container mb-5 pt-5'>
+        <section className='container pb-5 pt-5'>
           <div className="row d-flex justify-content-center">
             <div className="col-6">
               { filteredCategories.length === 0? (

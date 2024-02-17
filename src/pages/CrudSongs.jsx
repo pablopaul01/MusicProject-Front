@@ -75,7 +75,7 @@ const CrudSongs = () => {
                 </div>
             </div>
         </section>
-        <section >
+        <section className='pb-5'>
           { filteredSongs.length === 0? (
 
             <p className='ms-5 artistPlayer'>No se encontraron coincidencias...</p>

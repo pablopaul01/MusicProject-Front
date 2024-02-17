@@ -210,7 +210,7 @@ const CrudUsers = () => {
           </div>
         </div>
       </div>
-        <section className='container mb-5 pt-5'> 
+        <section className='container pb-5 pt-5'> 
             <div className="row">
                 <div className="col-4 d-flex gap-3">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Crear usuario</button>  
@@ -225,7 +225,7 @@ const CrudUsers = () => {
                 </div>
             </div>
         </section>
-        <section className='container mb-5 pt-5'>
+        <section className='container pb-5 pt-5'>
           { filteredUsers.length === 0? (
 
             <p className='ms-5 artistPlayer'>No se encontraron coincidencias...</p>

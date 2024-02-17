@@ -34,9 +34,14 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
 
   
     const onSubmit = async (data) => {
+      const token = localStorage.getItem("token");
       try {
         setLoading(true);
-        const response = await axiosInstance.post("/registrar", data);
+        const response = await axiosInstance.post("/registrar", data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
   
         Swal.fire({
           icon: "success",
