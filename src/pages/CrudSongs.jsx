@@ -4,11 +4,9 @@ import {GlobalContext} from '../context/GlobalContext'
 import MiniPlayerCrud from '../components/admin/songs/MiniPlayerCrud'
 import ModalSongs from '../components/admin/songs/ModalSongs'
 import ModalCategory from '../components/admin/songs/ModalCategory'
-import { set } from 'react-hook-form'
 
 
 const CrudSongs = () => {
-    const [currentIndexSong, setCurrenIndexSong] = useState(0)
     const [currentSong, setCurrentSong] = useState({})
     const [currentTimePlayer, setCurrentTimePlayer] = useState("00:00")
     const [isPlayingPlayer, setIsPlayingPlayer] = useState(false)
@@ -34,7 +32,6 @@ const CrudSongs = () => {
 
         const handleCategoryChange = (e) => {
           setSelectedCategory(e.target.value);
-          console.log("categoria elegida",e.target.value)
         };
 
         const handleSearch = (e) => {
@@ -57,7 +54,6 @@ const CrudSongs = () => {
             <div className="row">
                 <div className="col-4 d-flex gap-3">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Agregar canción</button>  
-                    <button className='btn btn-outline-light'onClick={handleShowCategory}>Crear Categoría</button>  
                 </div>
                 <ModalSongs showSongs={showSongs} setShowSongs={setShowSongs}/>
                 <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory}/>
@@ -75,7 +71,7 @@ const CrudSongs = () => {
                 </div>
             </div>
         </section>
-        <section >
+        <section className='pb-5'>
           { filteredSongs.length === 0? (
 
             <p className='ms-5 artistPlayer'>No se encontraron coincidencias...</p>
@@ -98,7 +94,6 @@ const CrudSongs = () => {
             ))
           }
         </section>
-
     </div>
   )
 }

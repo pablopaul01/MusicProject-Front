@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
 import { GlobalContext } from '../../../context/GlobalContext';
@@ -19,7 +18,6 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
 
     const handleClose = () => setShowSongs(false);
     const [showPassword, setShowPassword] = useState(false);
-    // const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const {state, dispatch} = useContext(GlobalContext)
   
@@ -34,9 +32,14 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
 
   
     const onSubmit = async (data) => {
+      const token = localStorage.getItem("token");
       try {
         setLoading(true);
-        const response = await axiosInstance.post("/registrar", data);
+        const response = await axiosInstance.post("/registrar", data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
   
         Swal.fire({
           icon: "success",

@@ -6,6 +6,7 @@
     box-shadow: -1px -17px 31px 9px rgba(0,0,0,1);
 -webkit-box-shadow: -1px -17px 31px 9px rgba(0,0,0,1);
 -moz-box-shadow: -1px -17px 31px 9px rgba(0,0,0,1);
+z-index: 5;
 }
 
 .mainControls {
@@ -23,14 +24,6 @@
 .artistPlayer {
     color: #96989A ;
 }
-
-/* .wavesurfer-region {
-    max-width: 100%;
-}
-
-.canvases {
-    width: 100%;
-} */
 
 #waveform {
     min-width: none;

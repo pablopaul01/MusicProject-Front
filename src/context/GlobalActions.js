@@ -1,10 +1,8 @@
-import { jwtDecode } from "jwt-decode";
 import { axiosInstance } from "../config/axiosInstance";
 import { GET_SONGS, GET_CATEGORIES, GET_USERS, GET_SONGS_BY_USER } from "./types";
 
 
 export const getSongs = async () => {
-    // const token = localStorage.getItem("token");
     try {
         const response = await axiosInstance.get('/')
         return {

@@ -11,8 +11,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrentTimePlayer, setIsPlayingPlayer, porcentaje, setPorcentaje}) => {
 
   const [isPlaying, setIsPlaying] = useState(false)
-  // const [currenIndexSong, setCurrenIndexSong] = useState(0)
-  // const [nextIndexSong, setNextIndexSong] = useState(currentIndexSong+1)
+
   const [currentTime, setCurrentTime] = useState("00:00")
   const [progress, setProgress] = useState(0)
   const [waveForm, setWaveForm] = useState(null)
@@ -31,7 +30,6 @@ const MiniPlayer = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCurrent
       progressColor: '#7F9054',
       fillParent: true,
       media: audioEl.current,
-       // <- this is the important part
     })
     setWaveForm(wavesurfer)
   }

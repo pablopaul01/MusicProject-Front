@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {getCategories, getSongs, getUsers} from '../context/GlobalActions'
+import { getSongs, getUsers} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
 import ModalCategory from '../components/admin/songs/ModalCategory'
 import DataTable from 'react-data-table-component';
@@ -12,6 +12,7 @@ import { MdAudiotrack } from "react-icons/md";
 import { axiosInstance } from '../config/axiosInstance'
 import ModalEditUser from '../components/admin/users/ModalEditUser'
 import ModalUsersSongs from '../components/admin/users/ModalUsersSongs';
+import { jwtDecode } from 'jwt-decode';
 
 
 const CrudUsers = () => {
@@ -25,7 +26,7 @@ const CrudUsers = () => {
     const [idUser, setIdUser] = useState("")
     const [idUserSong, setIdUserSong] = useState("")
     const [userData, SetUserData] = useState({});
-    const [stateSongs, setStateSongs] = useState([])
+    const [filterType, setFilterType] = useState("")
 
     useEffect(() => {
       dispatch(getUsers())
@@ -115,42 +116,62 @@ const CrudUsers = () => {
           selectAllRowsItemText: 'Todos',
       };
       
-        const filteredUsers = state.users
-        .filter((user) => searchTerm === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      let filteredUsers = []
+      if (filterType === "Por nombre") {
+        filteredUsers = state.users.filter((user) => searchTerm === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      }
+      else if (filterType === "Por apellido") {
+        filteredUsers = state.users.filter((user) => searchTerm === '' || user.lastname.toLowerCase().includes(searchTerm.toLowerCase()))
+      }
+      else if (filterType === "Por email") {
+        filteredUsers = state.users.filter((user) => searchTerm === '' || user.email.toLowerCase().includes(searchTerm.toLowerCase()))
+      }
+      else {
+        filteredUsers = state.users
+      }
 
         const deleteUser = async (row) => {
           const token = localStorage.getItem("token");
-          // const decoded = jwtDecode(token);   
-          try {
-              Swal.fire({
-                  title: 'Esta seguro de eliminar el usuario?',
-                  text: "No podrás revertir los cambios!",
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Si, eliminar!'
-              }).then(async (result) => {
-                  if (result.isConfirmed) {
-                      await axiosInstance.delete(`/usuario/${row}`, {
-                        headers: {
-                          Authorization: `Bearer ${token}`,
-                        }
-                      });
-                      Swal.fire(
-                          'Eliminado!',
-                          'El usuario fue eliminado',
-                          'success'
-                      )
-                     dispatch( getUsers());
-                  }
+          const decoded = jwtDecode(token);   
+          if (decoded.sub === row) {
+            Swal.fire({
+                  icon: 'error',
+                  title: 'No puedes eliminar un usuario',
+                  text: 'No puedes eliminar un usuario que estes logueado',
               })
-          } catch (error) {
-              Swal.fire({
-                  icon: "error",
-                  title: `Ocurrió un problema! Error${error.response.data.status}`,
-                  text: `${error.response.data.mensaje}`
-              })
+          }else{
+
+            try {
+                Swal.fire({
+                    title: 'Esta seguro de eliminar el usuario?',
+                    text: "No podrás revertir los cambios!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar!'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        await axiosInstance.delete(`/usuario/${row}`, {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          }
+                        });
+                        Swal.fire(
+                            'Eliminado!',
+                            'El usuario fue eliminado',
+                            'success'
+                        )
+                       dispatch( getUsers());
+                    }
+                })
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: `Ocurrió un problema! Error${error.response.data.status}`,
+                    text: `${error.response.data.mensaje}`
+                })
+            }
           }
           
       }
@@ -202,6 +223,10 @@ const CrudUsers = () => {
       getUserById();
     }, [idUserSong]);
 
+    const handleFilterType = (e) => {
+      setFilterType(e.target.value);
+    }
+
   return (
     <div className='main'>
       <div className='container-fluid cabecera'>
@@ -210,22 +235,26 @@ const CrudUsers = () => {
           </div>
         </div>
       </div>
-        <section className='container mb-5 pt-5'> 
-            <div className="row">
-                <div className="col-4 d-flex gap-3">
+        <section className='container pb-5 pt-5'> 
+            <div className="row justify-content-between">
+                <div className="col-12 col-md-4 d-flex gap-3 justify-content-center mb-3 mb-md-0">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Crear usuario</button>  
                 </div>
                 <ModalUsers showSongs={showSongs} setShowSongs={setShowSongs}/>
                 <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory}/>
-                <div className="col-4 d-flex align-items-center">
 
-                </div>
-                <div className="col-4 d-flex gap-3 align-items-center">
-                    <input type="text" className="form-control" placeholder="Buscar usuario..." onChange={handleSearch}/>
+                <div className="col-12 col-md-6 d-flex gap-3 align-items-center flex-column flex-md-row">
+                    <select name="filterTyper" id="filterType" className='form-select' style={{width: '180px'}} onChange={handleFilterType}>
+                      <option value="">Tipo de busqueda</option>
+                      <option value="Por nombre">Por nombre</option>
+                      <option value="Por apellido">Por apellido</option>
+                      <option value="Por email">Por email</option>
+                    </select>
+                    <input type="text" className="form-control" placeholder="Buscar..." onChange={handleSearch}/>
                 </div>
             </div>
         </section>
-        <section className='container mb-5 pt-5'>
+        <section className='container pb-5 pt-5'>
           { filteredUsers.length === 0? (
 
             <p className='ms-5 artistPlayer'>No se encontraron coincidencias...</p>

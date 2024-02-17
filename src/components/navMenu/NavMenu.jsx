@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -52,6 +51,12 @@ useEffect(() => {
    token = localStorage.getItem("token");
   }
 
+  const goPlayer = () => {
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    navigate(`/audioPlayer/${decoded.sub}`);
+  }
+
   return (
     <Navbar expand="lg" className="navMenu d-flex justify-content-between ps-5 pe-5">
 
@@ -62,11 +67,6 @@ useEffect(() => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          {
-            state.isLogged &&
-
-            <Nav.Link href="#home" className='itemMenu'>Reproductor</Nav.Link>
-          }
           { token ? (
             jwtDecode(token).role === "admin" &&
             (<NavDropdown title="Administrar" id="basic-nav-dropdown">
@@ -83,8 +83,15 @@ useEffect(() => {
           ) : (<></>)
           }
           {
+            state.isLogged && jwtDecode(token).role === "user"? (
+              <Nav.Link onClick={goPlayer} className='itemMenu'>Reproductor</Nav.Link>
+            ) : (<></>)
+          }
+          {
             state.isLogged ? (
-              <Nav.Link onClick={logout} className='itemMenu'>Cerrar sesión</Nav.Link>
+              <>
+                <Nav.Link onClick={logout} className='itemMenu'>Cerrar sesión</Nav.Link>
+              </>
             ) 
             : 
             (

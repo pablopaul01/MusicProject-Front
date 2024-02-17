@@ -59,14 +59,9 @@ const ModalEditCategory = ({showEdit, setShowEdit,idUser}) => {
             icon: "success",
             title: "Categoría actualizada correctamente"
           });
-        //   reset()
-        // await updateSongs();
           handleClose()
-                  // getCategories()
-        // handleCloseC()
         setLoading(false);
       } catch (error) {
-        console.log("error", error)
         Swal.fire({
           icon: "error",
           title: `Ocurrió un problema! Error${error.response.data.status}`,
