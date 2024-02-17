@@ -57,7 +57,6 @@ const CrudSongs = () => {
             <div className="row">
                 <div className="col-4 d-flex gap-3">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Agregar canción</button>  
-                    <button className='btn btn-outline-light'onClick={handleShowCategory}>Crear Categoría</button>  
                 </div>
                 <ModalSongs showSongs={showSongs} setShowSongs={setShowSongs}/>
                 <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory}/>
@@ -98,7 +97,6 @@ const CrudSongs = () => {
             ))
           }
         </section>
-
     </div>
   )
 }

@@ -84,9 +84,13 @@ useEffect(() => {
           ) : (<></>)
           }
           {
+            state.isLogged && jwtDecode(token).role === "user"? (
+              <Nav.Link onClick={goPlayer} className='itemMenu'>Reproductor</Nav.Link>
+            ) : (<></>)
+          }
+          {
             state.isLogged ? (
               <>
-                <Nav.Link onClick={goPlayer} className='itemMenu'>Reproductor</Nav.Link>
                 <Nav.Link onClick={logout} className='itemMenu'>Cerrar sesión</Nav.Link>
               </>
             ) 

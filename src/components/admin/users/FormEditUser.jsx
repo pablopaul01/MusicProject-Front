@@ -6,6 +6,8 @@ import { FiEdit } from "react-icons/fi";
 import { axiosInstance } from "../../../config/axiosInstance";
 import { GlobalContext } from '../../../context/GlobalContext';
 import { getUsers, getSongs } from '../../../context/GlobalActions';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import Spinner from "react-bootstrap/Spinner";
@@ -19,13 +21,14 @@ const FormEditUser = ({ showEdit, setShowEdit, handleClose, idUser }) => {
   const [editInputDni, setEditInputDni] = useState(true);
   const [editInputPhone, setEditInputPhone] = useState(true);
   const [userData, SetUserData] = useState({});
-
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const {state, dispatch} = useContext(GlobalContext)
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     reset,
     setValue 
@@ -159,7 +162,7 @@ useEffect(() => {
           </button>
         </div>
       </div>
-      <p className="text-danger my-1">{errors.name?.message}</p>
+      <p className="text-danger my-1">{errors.lastname?.message}</p>
       <div className="mb-2 pt-2">
         <label className="form-label">Rol de Usuario</label>
         <select name="role" className="form-select" {...register("role")}>
@@ -167,7 +170,30 @@ useEffect(() => {
           <option value="admin">admin</option>
         </select>
       </div>
-      <p className="text-danger my-1">{errors.role?.message}</p>
+      <div className="mb-2 pt-2">
+        <label className="form-label">Nueva contraseña</label>
+        <div className="input-group mb-3">
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            {...(watch("password") && register("password"))}
+            maxLength="40"
+          />
+            <span
+              className={
+                showPassword
+                  ? "input-group-text btn btn-danger"
+                  : "input-group-text btn btn-outline-danger"
+              }
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ cursor: "pointer" }}
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
+        </div>
+      </div>
+      <p className="text-danger my-1">{errors.password?.message}</p>
       {loading ? (
         <div className="text-center mt-4">
           <Spinner />
@@ -175,12 +201,12 @@ useEffect(() => {
       ) : (
         <>
           <button
-            className="btn btn-save mt-3"
+            className="btn btn-outline-light mt-3"
             type="submit"
           >
             Guardar Cambios
           </button>
-          <Button className="mt-3 mx-2 btn-cancel" onClick={handleClose}>
+          <Button className="mt-3 mx-2" variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
         </>
