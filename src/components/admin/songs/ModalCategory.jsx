@@ -61,11 +61,7 @@ const ModalCategory = ({showCategory, setShowCategory,song}) => {
             icon: "success",
             title: "Categoría creada correctamente"
           });
-        //   reset()
-        // await updateSongs();
           handleClose()
-                  // getCategories()
-        // handleCloseC()
         setLoading(false);
       } catch (error) {
         console.log("error", error)

@@ -24,7 +24,6 @@ const UserInterface = () => {
   const {id} = useParams()
     useEffect(() => {
         dispatch(getSongsByUser(id))
-        // getUserById()
       }, [])
 
       const getUserById = async () => {

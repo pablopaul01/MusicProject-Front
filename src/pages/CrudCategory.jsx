@@ -87,8 +87,7 @@ const CrudCategory = () => {
         .filter((category) => searchTerm === '' || category.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
         const deleteCategory = async (row) => {
-          const token = localStorage.getItem("token");
-          // const decoded = jwtDecode(token);   
+          const token = localStorage.getItem("token"); 
           try {
               Swal.fire({
                   title: 'Esta seguro de eliminar la categoría?',

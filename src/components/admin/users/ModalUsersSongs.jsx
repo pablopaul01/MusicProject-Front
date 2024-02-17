@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
 import { GlobalContext } from '../../../context/GlobalContext';
@@ -18,9 +17,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userData, setUserData, getUserById}) => {
     const handleClose = () => setShowUsersSongs(false);
     const [showPassword, setShowPassword] = useState(false);
-    // const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-
     const {state, dispatch} = useContext(GlobalContext)
 
     const {

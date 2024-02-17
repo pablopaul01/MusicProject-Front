@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {getCategories, getSongs, getUsers} from '../context/GlobalActions'
+import { getSongs, getUsers} from '../context/GlobalActions'
 import {GlobalContext} from '../context/GlobalContext'
 import ModalCategory from '../components/admin/songs/ModalCategory'
 import DataTable from 'react-data-table-component';
@@ -27,7 +27,6 @@ const CrudUsers = () => {
     const [idUserSong, setIdUserSong] = useState("")
     const [userData, SetUserData] = useState({});
     const [filterType, setFilterType] = useState("")
-    const [stateSongs, setStateSongs] = useState([])
 
     useEffect(() => {
       dispatch(getUsers())
@@ -119,7 +118,6 @@ const CrudUsers = () => {
       
       let filteredUsers = []
       if (filterType === "Por nombre") {
-        console.log("entro Por nombre")
         filteredUsers = state.users.filter((user) => searchTerm === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase()))
       }
       else if (filterType === "Por apellido") {

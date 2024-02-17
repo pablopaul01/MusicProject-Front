@@ -67,12 +67,10 @@ const skipSong = ( forwards = true) => {
   const createwaveform = () => {
     const wavesurfer = WaveSurfer.create({
       container: "#waveform",
-      // width: 500,
       height: 30,
       waveColor: '#C0C0C0',
       progressColor: '#7F9054',
       fillParent: true,
-      // minPxPerSec: 10,
       media: audioEl.current,
     })
     setWaveForm(wavesurfer)

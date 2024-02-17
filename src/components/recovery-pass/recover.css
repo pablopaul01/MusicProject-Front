@@ -33,11 +33,6 @@
     padding-bottom: 60px;
 }
 
-/* .btn-outline-light {
-    background-color: #95724c !important;
-    color: white;
-} */
-
 .btn-outline-light:hover {
     background-color: #7F9054  !important;
     color: white !important;

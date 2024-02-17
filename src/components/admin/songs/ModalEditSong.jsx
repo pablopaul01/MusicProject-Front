@@ -63,9 +63,6 @@ const ModalEditSongs = ({showSongs, setShowSongs,song}) => {
         formData.append("title", formDatos.title)
         formData.append("artist", formDatos.artist)
         formData.append("category", formDatos.category)
-        console.log("id song",song._id)
-        console.log("formData", formData)
-        console.log("fomDatos", formDatos)
         const resp = await axiosInstance.put(`/${song._id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`
@@ -78,7 +75,6 @@ const ModalEditSongs = ({showSongs, setShowSongs,song}) => {
           handleClose()
         setLoading(false);
       } catch (error) {
-        console.log("error", error)
         Swal.fire({
           icon: "error",
           title: `Ocurrió un problema! Error${error.response}`,

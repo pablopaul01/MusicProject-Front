@@ -46,7 +46,7 @@ const ModalSongs = ({showSongs, setShowSongs}) => {
     }
   
     const handleSubmit = async (e) => {
-      // const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       e.preventDefault();
       if (Object.values(errors).some(error => error)) {
       return; 
@@ -59,7 +59,7 @@ const ModalSongs = ({showSongs, setShowSongs}) => {
         formData.append("category", formDatos.category)
         formData.append("audio", audioFile[0])
   
-        const resp = await axiosInstance.post("/", formData)
+        const resp = await axiosInstance.post("/", formData, {headers: {Authorization: `Bearer ${token}`}})
         Swal.fire({
             icon: "success",
             title: "Canción agregada correctamente"

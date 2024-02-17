@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-// import "../../register/register.css"
 import { axiosInstance } from '../../../config/axiosInstance'
 import Swal from 'sweetalert2'
 import Spinner from 'react-bootstrap/Spinner';
@@ -43,7 +42,7 @@ const UploadSong = () => {
   }
 
   const handleSubmit = async (e) => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     e.preventDefault();
     if (Object.values(errors).some(error => error)) {
     return; 
@@ -56,18 +55,11 @@ const UploadSong = () => {
       formData.append("category", formDatos.category)
       formData.append("audio", audioFile[0])
 
-      await axiosInstance.post("/", formData)
+      await axiosInstance.post("/", formData, {headers: {Authorization: `Bearer ${token}`}});
       dispatch(getSongs())
-      // getCategories()
-      // handleCloseC()
       setLoading(false);
     } catch (error) {
       console.log("error",error)
-      // Swal.fire({
-      //   icon: "error",
-      //   title: `Ocurrió un problema! Error${error.response}`,
-      //   text: `${error.response}`
-      // })
     }
   }
 

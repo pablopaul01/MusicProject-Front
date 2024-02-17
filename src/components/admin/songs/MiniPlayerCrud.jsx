@@ -35,7 +35,6 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
       progressColor: '#7F9054',
       fillParent: true,
       media: audioEl.current,
-       // <- this is the important part
     })
     setWaveForm(wavesurfer)
   }

@@ -4,11 +4,9 @@ import {GlobalContext} from '../context/GlobalContext'
 import MiniPlayerCrud from '../components/admin/songs/MiniPlayerCrud'
 import ModalSongs from '../components/admin/songs/ModalSongs'
 import ModalCategory from '../components/admin/songs/ModalCategory'
-import { set } from 'react-hook-form'
 
 
 const CrudSongs = () => {
-    const [currentIndexSong, setCurrenIndexSong] = useState(0)
     const [currentSong, setCurrentSong] = useState({})
     const [currentTimePlayer, setCurrentTimePlayer] = useState("00:00")
     const [isPlayingPlayer, setIsPlayingPlayer] = useState(false)
@@ -34,7 +32,6 @@ const CrudSongs = () => {
 
         const handleCategoryChange = (e) => {
           setSelectedCategory(e.target.value);
-          console.log("categoria elegida",e.target.value)
         };
 
         const handleSearch = (e) => {

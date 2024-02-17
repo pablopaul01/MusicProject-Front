@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import UserInterface from './pages/UserInterface'
-import AudioPlayer from './pages/AudioPlayer'
 import PrivateRoutesUser from './Routes/PrivateRoutesUser'
 import PrivateRoutesAdmin from './Routes/PrivateRoutesAdmin'
 import LoginPage from './pages/LoginPage'
@@ -23,7 +22,6 @@ function App() {
 
   const location = useLocation();
   const hideFooter = location.pathname.startsWith('/audioPlayer/');
-  const isAuthenticated = !!localStorage.getItem('token');
 
   return (
     <>

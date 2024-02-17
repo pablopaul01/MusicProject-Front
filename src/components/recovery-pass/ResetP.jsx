@@ -13,16 +13,11 @@ import { jwtDecode } from 'jwt-decode'
 import { GlobalContext } from '../../context/GlobalContext'
 
 
-
-
 const ResetP = ({setIsLogged}) => {
     const [password, setPassword] = useState()
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false);
     const {state,dispatch} = useContext(GlobalContext)
-    // const { register, handleSubmit, formState: { errors }, reset } = useForm({
-    //     resolver: yupResolver(LOGIN_SCHEMA)
-    // })
 
     const navigate = useNavigate();
     const {id, token} = useParams()
@@ -37,47 +32,6 @@ const ResetP = ({setIsLogged}) => {
             }
         }).catch(err => console.log(err))
     }
-
-    // const onSubmit = async (data) => {
-
-    //     try {
-    //         setLoading(true);
-    //         const response = await axiosInstance.post("/login", data)
-    //         localStorage.setItem("token", response.data.token);
-    //         if (response.data.token) {
-    //             const decode = jwtDecode(response.data.token);
-    //             if (decode.role === "user") {
-    //                 navigate(`/audioPlayer/${decode.sub}`);
-    //             }
-    //             else
-    //             {
-    //                 navigate(`/users`);
-    //             }
-    //         }
-    //         dispatch({type: 'SET_IS_LOGGED', payload: true})
-    //         localStorage.setItem("localIsLogged", true);
-    //         Swal.fire({
-    //             icon: "success",
-    //             title: "Bienvenido"
-    //         })
-    //         setIsLogged(true)
-    //     } catch (error) {
-    //         console.log(error.response);
-    //         Swal.fire({
-    //             icon: "error",
-    //             title: `Ocurrió un problema!`,
-    //             text: `${error.response.data.mensaje}`
-    //         })
-    //     } finally {
-
-    //         setLoading(false); 
-    //         reset();
-    //     }
-    // }
-
-
-
-
 
     return (
 
