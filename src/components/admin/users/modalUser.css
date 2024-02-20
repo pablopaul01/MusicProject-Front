@@ -1,0 +1,19 @@
+.back {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(100px);  
+    opacity: 0.9;
+    color: #fff;
+}
+
+.glass {
+    background: rgb(48, 48, 48);
+    backdrop-filter: blur(10px);
+}
+
+.elform {
+    opacity: 1;
+}
+
+.title-modal {
+    color: #7F9054 !important;
+}

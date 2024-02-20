@@ -1,0 +1,54 @@
+.main {
+    min-height: 85vh;
+    background-color: #171717;
+    color: #fff;
+    padding-bottom: 90px;
+}
+
+.lamparas {
+    height: 80px;
+}
+
+.cabecera {
+    max-height: 20%;
+    background: url("https://res.cloudinary.com/dtkrptodh/image/upload/v1707183988/media/CABECERA-V_y7vlwv.png") repeat;
+    background-size: contain;
+    height: 80px;
+}
+
+.songsTable {
+ padding-bottom: 70px;
+}
+
+.notFound {
+    color: #96989A ;
+}
+
+#global {
+	height: 300px;
+	width: 100%;
+	background: #171717;
+	overflow-y: scroll;
+}
+#mensajes {
+	height: auto;
+}
+.texto {
+	padding:20px;
+	background:#171717;
+}
+
+.the-scroll::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+.the-scroll::-webkit-scrollbar-track {
+    background: #302e2e;       /* color of the tracking area */
+    border-radius: 20px;
+  }
+  
+.the-scroll::-webkit-scrollbar-thumb {
+    background-color: #b2b2b2;  
+    border-radius: 20px;       
+
+  }

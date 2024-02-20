@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Gilda+Display&family=Roboto:wght@100;300&display=swap');
+
+@font-face {
+    font-family: "Mosk";
+    src: url("../../assets/fonts/Mosk Medium 500.ttf");
+}
+
+
+
+.main-home {
+    min-height: 85vh;
+    background-color: black;
+} 
+
+.container-img-home {
+    overflow: hidden;
+    height: 85vh;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://res.cloudinary.com/dtkrptodh/image/upload/v1708040001/media/6_hhucud.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 118px -4px 56px -28px rgba(0,0,0,1) inset;
+    -webkit-box-shadow: 118px -4px 56px -28px rgba(0,0,0,1) inset;
+    -moz-box-shadow: 118px -4px 56px -28px rgba(0,0,0,1) inset;
+}
+
+.items-home {
+    background-color: #40490B;
+    color: #fff;
+    border-radius: 50px;
+    width: 60%;
+}
+
+.items-home-sm {
+    background-color: #40490B;
+    color: #fff;
+    border-radius: 50px;
+    width: 100%;
+}
+
+.btn-outline-light:hover {
+    background-color: #7F9054  !important;
+    color: white !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.link {
+    color: #96989A !important;
+}
+
+.link:hover {
+    color: #D2D3D4 !important;
+} 
+
+.form-control:focus {
+    box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    -webkit-box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    -moz-box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    
+} 
+
+

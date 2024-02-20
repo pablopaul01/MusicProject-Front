@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Gilda+Display&family=Roboto:wght@100;300&display=swap');
+
+@font-face {
+    font-family: "Mosk";
+    src: url("../../assets/fonts/Mosk Medium 500.ttf");
+}
+
+.titulo {
+    padding-top: -20px;
+}
+
+.titulo-login {  
+    font-family: "Mosk";
+    color: rgb(191, 22, 22);
+    font-size: 2.5rem;
+}
+
+
+.div-login {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);   
+    margin-top: 70px !important;
+}
+
+.btn-outline-light:hover {
+    background-color: #7F9054  !important;
+    color: white !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.link {
+    color: #96989A !important;
+}
+
+.link:hover {
+    color: #D2D3D4 !important;
+} 
+
+.form-control:focus {
+    box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    -webkit-box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    -moz-box-shadow: -1px 1px 11px 1px rgba(139, 101, 59, 0.75) !important;
+    
+} 
+
+
