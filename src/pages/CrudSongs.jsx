@@ -40,7 +40,7 @@ const CrudSongs = () => {
         };
       
         const filteredSongs = state.songs
-        .filter((song) =>  selectedCategory==='Filtrar por Categoría' || song.category._id === selectedCategory)
+        .filter((song) =>  selectedCategory==='Filtrar por Categoría' || song.category?._id === selectedCategory)
         .filter((song) => searchTerm === '' || song.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
