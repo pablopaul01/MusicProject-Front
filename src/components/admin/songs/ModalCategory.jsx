@@ -76,7 +76,6 @@ const ModalCategory = ({showCategory, setShowCategory,song}) => {
         document.getElementById("formCategory").reset()
       }
     }
-  // console.log("song", song)
 
   return (  <>
 

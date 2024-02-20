@@ -7,8 +7,6 @@ import Swal from 'sweetalert2';
 const PrivateRoutesUser = () => {
     const isAuth = localStorage.getItem("token");
     const decode = jwtDecode(isAuth);
-    console.log("decode",decode)
-
     
     return isAuth && decode.state === true ?
         <Outlet />
