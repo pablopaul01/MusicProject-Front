@@ -74,7 +74,7 @@ const ModalUsers = ({showSongs, setShowSongs}) => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className='d-flex'>
                 <div className="mb-2 pt-2 w-100 me-1">
-                  <label className="form-label">Nombre Completo</label>
+                  <label className="form-label">Nombre</label>
                   <input
                     placeholder="Juan Perez"
                     type="text"
