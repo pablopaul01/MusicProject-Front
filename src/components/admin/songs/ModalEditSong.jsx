@@ -145,7 +145,7 @@ const ModalEditSongs = ({showSongs, setShowSongs,song}) => {
               :
               (
                 <div className="d-grid mt-5 mb-4">
-                  <button className="btn btn-save" type="submit" >Guardar Cambios</button>
+                  <button className="btn btn-outline-light" type="submit" >Guardar Cambios</button>
                 </div>
               )
           }
