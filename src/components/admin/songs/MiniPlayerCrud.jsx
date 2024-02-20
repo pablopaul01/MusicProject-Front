@@ -93,9 +93,14 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si, eliminar!'
     }).then(async (result) => {
+      const token = localStorage.getItem("token");
         if (result.isConfirmed) {
           const resp = await axiosInstance.delete(
-            `/${song._id}`,
+            `/${song._id}`,{
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            }
           );
             Swal.fire(
                 'Eliminado!',
