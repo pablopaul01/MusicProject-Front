@@ -27,6 +27,7 @@ const CrudUsers = () => {
     const [idUserSong, setIdUserSong] = useState("")
     const [userData, SetUserData] = useState({});
     const [filterType, setFilterType] = useState("")
+    const [stateSongs, setStateSongs] = useState([])
 
     useEffect(() => {
       dispatch(getUsers())
