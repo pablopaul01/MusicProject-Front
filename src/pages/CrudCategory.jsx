@@ -151,7 +151,7 @@ const CrudCategory = () => {
           </div>
         </div>
       </div>
-        <section className='container mb-5 pt-5'> 
+        <section className='container mb-3 pt-5'> 
             <div className="row">
                 <div className="col-4 d-flex gap-3">
                     <button className='btn btn-outline-light'  onClick={handleShowCategory}>Crear categoria</button>  

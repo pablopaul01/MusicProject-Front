@@ -63,7 +63,6 @@ const UploadSong = () => {
     }
   }
 
-  console.log(state);
   return (
     <div>
       <form className="form-container" onSubmit={handleSubmit}>

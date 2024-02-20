@@ -49,7 +49,6 @@ const ModalEditCategory = ({showEdit, setShowEdit,idUser}) => {
         setLoading(true);
         const formData = new FormData();
         formData.append("name", formDatos.name)
-        console.log("formData", formDatos)
         const resp = await axiosInstance.put(`/category/${idUser}`, formDatos, {
           headers: {
             Authorization: `Bearer ${token}`

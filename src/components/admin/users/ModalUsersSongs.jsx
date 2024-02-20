@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
 import { GlobalContext } from '../../../context/GlobalContext';
-import { getUsers, getSongs } from '../../../context/GlobalActions';
+import { getUsers, getSongs, getCategories } from '../../../context/GlobalActions';
 import { axiosInstance } from '../../../config/axiosInstance';
 import { REGISTRO_SCHEMA } from '../../../utils/validationsSchemas';
 import { useForm } from "react-hook-form";
@@ -14,11 +14,18 @@ import Swal from 'sweetalert2'
 import { formatTime } from '../../../utils/formatTime';
 import { IoMdAddCircleOutline } from "react-icons/io";
 
+
 const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userData, setUserData, getUserById}) => {
     const handleClose = () => setShowUsersSongs(false);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const {state, dispatch} = useContext(GlobalContext)
+    const [selectedCategory, setSelectedCategory] = useState('Filtrar por Categoría');
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+      dispatch(getCategories())
+    }, [])
 
     const {
       register,
@@ -36,7 +43,13 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
       filteredSongs = state.songs.filter(song => !userDataAudioListIds?.includes(song._id.toString()));
     }
 
+    const handleCategoryChange = (e) => {
+      setSelectedCategory(e.target.value);
+    };
 
+    const handleSearch = (e) => {
+      setSearchTerm(e.target.value);
+    };
   
     const onSubmit = async (data) => {
       try {
@@ -199,6 +212,10 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
     }
   }
 
+  const filtered = filteredSongs
+  .filter((song) =>  selectedCategory==='Filtrar por Categoría' || song.category?._id === selectedCategory)
+  .filter((song) => searchTerm === '' || song.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
   return (  <>
 
 
@@ -220,9 +237,18 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
                 noDataComponent="No hay canciones seleccionadas para este usuario aún"
               />
             <p className='mt-5'>Agregar Caciones</p>
+                <div div className="col-10 d-flex gap-3 align-items-center flex-column flex-md-row mb-2">
+                    <select className="form-select" aria-label="Default select example" onChange={handleCategoryChange} style={{width: '180px'}}>
+                        <option >Filtrar por Categoría</option>
+                        {state.categories.map( (category,idx) => (
+                          <option key={idx} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
+                    <input type="text" className="form-control me-5" placeholder="Buscar canción..." onChange={handleSearch}/>
+                </div>
             <DataTable
                 columns={columnSongs}
-                data={filteredSongs}
+                data={filtered}
                 pagination
                 theme='dark'
                 highlightOnHover

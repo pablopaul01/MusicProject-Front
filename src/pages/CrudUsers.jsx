@@ -236,9 +236,9 @@ const CrudUsers = () => {
           </div>
         </div>
       </div>
-        <section className='container pb-5 pt-5'> 
+        <section className='container pb-3 pt-5'> 
             <div className="row justify-content-between">
-                <div className="col-12 col-md-4 d-flex gap-3 justify-content-center mb-3 mb-md-0">
+                <div className="col-12 col-md-4 d-flex gap-3 justify-content-start mb-3 mb-md-0">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Crear usuario</button>  
                 </div>
                 <ModalUsers showSongs={showSongs} setShowSongs={setShowSongs}/>
