@@ -17,6 +17,7 @@ const CrudSongs = () => {
     const {state, dispatch} = useContext(GlobalContext)
     const [selectedCategory, setSelectedCategory] = useState('Filtrar por Categoría'); // Estado para la categoría seleccionada
     const [searchTerm, setSearchTerm] = useState('');
+    const [currenIndexSong, setCurrenIndexSong] = useState("")
 
     useEffect(() => {
       dispatch(getCategories())
@@ -52,16 +53,13 @@ const CrudSongs = () => {
       </div>
         <section className='container mb-5 pt-5'> 
             <div className="row">
-                <div className="col-4 d-flex gap-3">
+                <div className="col-12 col-md-4 d-flex gap-3 justify-content-center mb-3 mb-md-0">
                     <button className='btn btn-outline-light'  onClick={handleShowSongs}>Agregar canción</button>  
                 </div>
                 <ModalSongs showSongs={showSongs} setShowSongs={setShowSongs}/>
                 <ModalCategory showCategory={showCategory} setShowCategory={setShowCategory}/>
-                <div className="col-4 d-flex align-items-center">
-
-                </div>
-                <div className="col-4 d-flex gap-3 align-items-center">
-                    <select className="form-select" aria-label="Default select example" onChange={handleCategoryChange}>
+                <div className="col-12 col-md-6 d-flex gap-3 align-items-center flex-column flex-md-row">
+                    <select className="form-select" aria-label="Default select example" onChange={handleCategoryChange} style={{width: '180px'}}>
                         <option >Filtrar por Categoría</option>
                         {state.categories.map( (category,idx) => (
                           <option key={idx} value={category._id}>{category.name}</option>

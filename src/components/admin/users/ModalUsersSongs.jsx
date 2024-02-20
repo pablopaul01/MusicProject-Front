@@ -175,7 +175,12 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
         confirmButtonText: 'Si, eliminar!'
     }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axiosInstance.put(`/usuario/audios/${userData._id}`,{"_id": row});
+          const token = localStorage.getItem("token");
+          const response = await axiosInstance.put(`/usuario/audios/${userData._id}`,{"_id": row}, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
             Swal.fire(
                 'Eliminado!',
                 'El audio fue eliminado',
