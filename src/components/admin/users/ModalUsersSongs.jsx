@@ -177,6 +177,8 @@ const ModalUsersSongs = ({showUsersSongs, setShowUsersSongs, idUserSong, userDat
   }
 
   const handleClickDelete = async (row) => {
+    console.log("el state", state)
+    console.log("esto es row", row)
     try {
       Swal.fire({
         title: 'Esta seguro de eliminar el audio?',

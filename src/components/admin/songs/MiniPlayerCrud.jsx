@@ -130,7 +130,7 @@ const MiniPlayerCrud = ({song, idx,setCurrenIndexSong, currentTimePlayer, setCur
                     setCurrentTime(formatTime(e.target.currentTime.toFixed(2)))
                     updateProgress()}}></audio>
 
-    <section className='container miniPlayer py-2'>
+    <section className='container-fluid miniPlayer py-2'>
                 <div className="row px-4 d-flex gap-5 gap-md-0 justify-content-around">
                   <div className="col-1 d-flex gap-5 ">
                     <div className='d-flex gap-2 align-items-center'>
